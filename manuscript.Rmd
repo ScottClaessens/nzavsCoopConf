@@ -1,0 +1,383 @@
+---
+title             : "Cooperative and conformist behavioural preferences predict the dual dimensions of political ideology"
+shorttitle        : "Cooperation, conformity, and political ideology"
+
+author: 
+  - name          : "Scott Claessens"
+    affiliation   : "1"
+  - name          : "Chris G Sibley"
+    affiliation   : "1"
+  - name          : "Ananish Chaudhuri"
+    affiliation   : "2,3"
+  - name          : "Quentin D Atkinson"
+    affiliation   : "1,4"
+    corresponding : yes
+    address       : "Floor 2, Building 302, 23 Symonds Street, Auckland, 1010, New Zealand"
+    email         : "q.atkinson@auckland.ac.nz"
+
+affiliation:
+  - id            : "1"
+    institution   : "School of Psychology, University of Auckland, Auckland, New Zealand"
+  - id            : "2"
+    institution   : "Department of Economics, University of Auckland, Auckland, New Zealand"
+  - id            : "3"
+    institution   : "CESifo, Munich, Germany"
+  - id            : "4"
+    institution   : "Max Planck Institute for the Science of Human History, Jena, Germany"
+
+abstract: |
+ Decades of research suggest that our political differences are best captured by two dimensions of political ideology. The dual evolutionary framework of political ideology predicts that these dimensions should be related to variation in social preferences for cooperation and group conformity. Here, we combine data from a nationally representative New Zealand survey and a suite of incentivised behavioural tasks (_n_ = 991) to test whether cooperative and conformist preferences covary with a pair of widely used measures of the two dimensions of political ideology --- Social Dominance Orientation (SDO) and Right Wing Authoritarianism (RWA) --- and related policy views. As predicted, we find that cooperative behaviour covaries with lower SDO and economically progressive policy views, while conformist behaviour in the form of social information use covaries with higher RWA and socially conservative policy views. However, we did not find the predicted relationships between punitive and rule following behaviours and RWA or socially conservative views, raising questions about the interpretation of punishment and rule following tasks and the nature of authoritarian conformist preferences. These findings reveal how cooperative and conformist preferences that evolved to help us navigate social challenges in our ancestral past continue to track our political differences even today.
+
+authornote        : "Word count: 7956 words"
+note              : "This working paper has not yet been peer-reviewed."
+keywords          : "cooperation, conformity, punishment, behavioural economics, political ideology"
+wordcount         : "7956 words"
+bibliography      : ["r-references.bib"]
+floatsintext      : no
+figurelist        : no
+figsintext        : yes
+tablelist         : no
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+documentclass     : "apa6"
+classoption       : "man"
+output            : papaja::apa6_word
+header-includes: 
+  - \raggedbottom
+  - \usepackage{setspace}
+  - \AtBeginEnvironment{tabular}{\singlespacing}
+  - \AtBeginEnvironment{lltable}{\singlespacing}
+  - \AtBeginEnvironment{tablenotes}{\doublespacing}
+  - \captionsetup[table]{font={stretch=1.5}}
+  - \captionsetup[figure]{font={stretch=1.5}}
+appendix          : "appendix.Rmd"
+---
+
+# Introduction
+
+```{r setup, include = FALSE}
+loadd(d1)
+loadd(d2)
+```
+
+Humans differ profoundly in their views on political issues like income redistribution, taxation, welfare, abortion, and religious instruction in schools. With an increasing focus on political polarisation and the consequent challenges of finding common ground on a host of pressing issues [@Neal2018; @PewResearchCenter2014], understanding the sources of this variation is more pressing than ever. One prominent explanation for variation in political views is that liberals and conservatives differ fundamentally in psychological traits and social preferences [@Hibbing2014; @Jost2003]. For example, research suggests that, compared to liberals, conservatives exhibit increased sensitivity to threats [@Hibbing2014], personal needs for closure [@Jost2003], and intolerance of uncertainty [@Jost2017], producing variation in support for policies that promote order, structure, and stability. By contrast, other evidence suggests that liberals and conservatives do not differ psychologically [@Brandt2014; @Crawford2017a; @Crawford2017b] and that variation in political views between liberals and conservatives instead reflects expressions of self-interest based on socio-demographic factors, identity, and political coalitions [@Weeden2014].
+
+The debate about the existence of liberal-conservative psychological differences has largely treated political ideology as a unidimensional spectrum from left to right [but see @Crawford2017b]. But decades of interdisciplinary work indicate that political ideology is best described along two dimensions [@Claessens2020; @Duckitt2009; @Feldman2014; @Saucier2000; @Schwartz1992]. The first dimension captures views on issues like taxation, welfare, capitalism, and big business [@Feldman2014], and has been variously labelled as economic conservatism, Social Dominance Orientation (SDO), individualising moral foundations, equality values, and egalitarianism [@Claessens2020; @Duckitt2009; @Graham2009; @Rokeach1973]. The second dimension captures views on issues like abortion, patriotism, sexual morality, and criminal justice [@Feldman2014], and has been variously labelled as social conservatism, Right Wing Authoritarianism (RWA), binding moral foundations, freedom values, and group loyalty [@Claessens2020; @Duckitt2009; @Graham2009; @Rokeach1973]. These two dimensions have repeatedly emerged from independent lines of research in political psychology [@Duckitt2009], moral psychology [@Graham2009], and cross-cultural psychology [@Ashton2005]. While the two dimensions of political ideology tend to positively covary in Western societies, suggesting that they are not orthogonal [@Duckitt2009], they are distinct and can vary independently, being negatively correlated with one another in many societies around the globe [@Malka2019].
+
+Building on previous evolutionary approaches to politics and human sociality [@Haidt2012; @Hibbing2013; @Petersen2015], we recently proposed that the dual dimensions of political ideology are a product of two key trade-offs inherent to the evolution of human group living [@Claessens2020]: a trade-off between cooperative egalitarianism and competitive hierarchy, and a trade-off between individualism and group conformity. In line with approaches claiming that psychological and behavioural differences exist across the political landscape, one prediction of the dual evolutionary framework is that variation in general behavioural preferences for cooperation and group conformity will differentially predict the two dimensions of ideology in modern humans [@Claessens2020]^[We define cooperative behaviour as behaviour that provides a benefit to another individual at a personal cost [@West2007] and conformist behaviour as reliance on socially acquired information and adherence to and enforcement of social norms within cultural groups.]. Under this framework, an increased general behavioural preference for cooperation beyond close kin results in greater support for policies that promote large-scale impersonal cooperation and a more egalitarian distribution of resources, such as income redistribution, taxation, welfare, and pro-environmentalism. An increased general behavioural preference for group conformity results in greater support for policies that promote in-group conformity, norm enforcement, and the interests of the in-group, such as religious instruction in schools, capital punishment, and military spending.
+
+If general behavioural preferences for cooperation and group conformity do underlie differences in political opinion in modern humans, such differences should be manifest in preferences measured by incentivised behavioural tasks. Incentivised behavioural tasks (i.e. decision-making tasks involving real money) allow researchers to study variation in enduring social preferences without succumbing to issues of social desirability and experimenter demand that plague self-report methods [@Chaudhuri2009; @Gawronski2015; @Pisor2020]. Decades of work using incentivised behavioural tasks have revealed individual differences in both cooperative behavioural preferences [@Kuhlman1975; @Kurzban2001; @Chaudhuri2011] and conformist behavioural preferences [@Molleman2019; @Toelch2014; @Efferson2008; @Molleman2014] in humans.
+
+Previous research has studied the covariation between behaviour in incentivised tasks and the two dimensions of political ideology. A number of studies find support for an association between cooperative preferences and SDO, an ideological measure of preferences for hierarchy and anti-egalitarianism [@Haesevoets2015; @Halali2018]. In a meta-analysis of the links between personality and prosocial behaviour, @Thielmann2020 found that cooperative behaviour in a number of social dilemma games that allow exploitation of others was negatively correlated with SDO [@Duckitt2009]. In contrast, other research has failed to find a relationship between SDO and cooperative behaviour in the Prisoner's Dilemma Game, in which two players choose whether to cooperate or defect [@Balliet2016; @Haesevoets2015], or the Stag Hunt Game, in which two players must coordinate on one of multiple equilibrium strategies [@Haesevoets2015]. These findings suggest that SDO may relate to particular affordances of individual games [e.g., exploitation; @Thielmann2020] rather than to a general behavioural cooperative preference that applies across situations with different payoff structures, as predicted by the dual evolutionary framework.
+
+While self-report studies have found correlations between socially conservative and conformist attitudes [@Feldman2003; @Tarr1991], behavioural studies exploring the relationship between political ideology and general behavioural conformist preferences are more limited. Several studies have found a relationship between conformist social learning behaviour and collectivist values [@Toelch2014; @Molleman2019], values that @Kemmelmeier2003 found are positively correlated with RWA, an ideological measure of authoritarian attitudes [@Duckitt2009]. In contrast, @Smirnov2010 found that norm-enforcing punishment behaviour in a collective action game did not differ between Republicans and Democrats, although these authors did not include measures of political ideology. Much like the work relating cooperative behaviour to political ideology, these behavioural studies are limited by only focusing on one or two incentivised behavioural tasks and single measures of political ideology.
+
+Here, we extend prior work by combining a large suite of incentivised behavioural tasks with comprehensive survey data to test whether and to what extent cooperative and conformist behavioural preferences covary with measures of the two dimensions of political ideology. Across two pre-registered studies, we asked participants to complete a series of incentivised behavioural tasks measuring cooperative preferences, such as trust, altruism, and collective action, and conformist preferences, such as norm-enforcing punishment, social information use, and rule following. In Study 1, we used a battery of one-shot anonymous economic games, selected because they have previously been shown to capture two dimensions of behaviour, one reflecting a "cooperative phenotype" and another labelled "norm-enforcing punishment" [@Peysakhovich2014]. In Study 2, we extended this suite of games to include incentivised tasks capturing two further elements of conformist behaviour: social information use and rule following. 
+
+Across these studies, we related cooperative and conformist preferences to SDO and RWA, two widely used measures that map onto the hypothesised dimensions of political ideology [@Duckitt2009] and have been shown to predict policy views, prejudice, and political party support [@Duckitt2009; @Satherley2021; @Sibley2010]. However, useful though they are, these measures are not perfect proxies of the two latent dimensions of political ideology proposed by the dual evolutionary framework [@Claessens2020]. For example, SDO items refer to between-group rather than interpersonal competition [@Ho2015] and the relationship between RWA and conservatism is context-dependent [@Everett2013]. To generalise our findings beyond these idiosyncratic measures, we also related cooperative and conformist behaviour to a host of locally relevant economic and social policy views, respectively. By linking behaviour in these abstract tasks to a broad range of self-reported political attitudes and policy views, we aim to identify whether and to what extent cooperative and conformist preferences covary with the dual dimensions of political ideology.
+
+```{r echo=F, warning=F, message=F}
+cor <- readd(cor)
+pca1.2 <- readd(pca1.2)
+pca2.2 <- readd(pca2.2)
+```
+
+# Study 1
+
+## Methods
+
+### Participants and sampling
+
+Participants for this study were sampled from the ongoing longitudinal New Zealand Attitudes and Values Study [@Sibley2020]. This participant pool is a representative sample of the New Zealand population, contacted through random draws from the New Zealand electoral roll. From a sample frame of 3,345 participants (see Supplementary Methods), we successfully contacted 2,731 about the study. Participants were contacted initially by phone and then, if they agreed to participate, over email in the days leading up to their allocated study session. 1,740 participants either dropped out of the study, spent less than 5 minutes or more than 50 minutes on the games, or did not have SDO or RWA scores. This resulted in a final sample of `r nrow(d1)` participants (`r sum(d1$Gender.T10==0,na.rm=T)` females; age _M_ = `r printnum(mean(d1$Age.T10,na.rm=T),digits=1)` years, _SD_ = `r printnum(sd(d1$Age.T10,na.rm=T),digits=1)` years; see Supplementary Figure \@ref(fig:samplePlot) for further sample characteristics), which exceeded our apriori power analysis (see Supplementary Methods). Because this is an ongoing longitudinal study, ethical concerns prevent us from making the final dataset publicly available.
+
+### Materials
+
+#### New Zealand Attitudes and Values Survey measures
+
+We took our main self-report variables from the 10^th^ wave of the New Zealand Attitudes and Values Study [@Sibley2020], an annual longitudinal survey completed by New Zealand participants. The main self-report variables included SDO, RWA, age, gender, ethnicity, education level, socio-economic status, local deprivation, and religiosity. SDO and RWA scores were both mean scores of six separate Likert-scale items (1 = strongly disagree, 7 = strongly agree). Additional items on policy views were taken from earlier waves of the New Zealand Attitudes and Values Study. See Supplementary Table \@ref(tab:itemTable) for full list of self-report items.
+
+#### Battery of economic games
+
+Participants completed eight economic games, conducted online in real-time using oTree software [code available at https://osf.io/dwx8g/; @Claessens2021; @Chen2016]. In an attempt to replicate previous work, these games are largely identical to those from @Peysakhovich2014.
+
+We included three cooperation games in which individuals decided whether to incur a personal cost to benefit another player: 
+
+- _Dictator Game_. Player A is given 100 points. They must decide how many of these points to transfer to Player B. Player A keeps the remaining points. Player B is passive in the interaction.
+- _Trust Game_. Players A and B both start with 50 points. First, Player A decides whether or not to transfer all 50 points to Player B, in the knowledge that the transferred amount will be tripled to 150 points. If Player A transfers, Player B now has 200 points. Player B must then decide to transfer 0 - 150 points back to Player A.
+- _Public Goods Game_. Four players begin with 100 points each. They can contribute 0 - 100 points into a shared group project. All four decisions are made simultaneously, and then the amount in the group project is doubled and distributed evenly between all four players. Each player ends the game with their share from the group project, plus the points they initially refrained from contributing.
+
+We also included three punishment games, in which individuals decide whether to incur a personal cost to punish another player for their decisions:
+
+- _Ultimatum Game_. Player A starts with 100 points, and Player B starts with nothing. Player A must decide how many points to transfer to Player B. However, Player B simultaneously specifies their 'minimum acceptable offer': namely, the lowest transfer from Player A that they will accept. If Player A's transfer amount is lower than this minimum acceptable offer, both players end the game with 0 points. Otherwise, Player B receives the transfer amount, and Player A keeps the remaining points.
+- _Third-Party Punishment Game_. Players A, B, and C all start with 100 points. First, Player A decides whether to 'take' from Player B. If Player A takes, Player B loses 50 points and Player A gains 30 points (taking is inefficient). If Player A takes, Player C can then pay 0 - 20 points to remove points from Player A. Each paid point removes 5 points from Player A. Player B is passive in the interaction.
+- _Second-Party Punishment Game_. Players A and B start with 100 points. This game has two stages: the transfer stage, and the penalty stage. In the transfer stage, each player decides whether to transfer 30 points to the other player. Any transferred points are doubled before the other player receives them. Decisions are made simultaneously. The transfer stage follows the payoff matrix of a Prisoner's Dilemma. Then, in the penalty phase, both players can pay 0 - 10 points to remove points from the other player, depending on their decision in the transfer stage. Each paid point removes 5 points from the other player.
+
+We replaced the destructive All-Pay Auction Game used in @Peysakhovich2014 with two coordination games: a version of the Stag Hunt Game, in which players must coordinate on one of multiple equilibria, with one of those equilibria dominating the others in terms of payoffs; and the Stag Hunt Game with Punishment, in which players may punish others for not choosing the strategy commensurate with the payoff-dominant equilibrium. We added these two games to study whether the general preferences for cooperation and punishment extended to coordination problems that do not involve exploitation of others and are arguably better models for the real-world cooperative dilemmas faced by our human ancestors [@Tomasello2012]:
+
+- _Stag Hunt Game_. Four players begin with 50 points each. They can either contribute 30 points into a shared group project or contribute nothing. Any points in the group project will be doubled and distributed evenly between all players, _but only if all players contribute_. Otherwise, the points in the group project will be lost. Decisions are made simultaneously. Each player ends the game with their share from the group project, plus the points they initially refrained from contributing.
+- _Stag Hunt Game with Punishment_. Players A and B start with 100 points. This game has two stages: the transfer stage, and the penalty stage. In the transfer stage, each player decides whether to transfer 30 points to a group project. Any points in the group project will be doubled and distributed evenly between both players, _but only if both players contribute_. Otherwise, the points in the group project will be lost. Decisions are made simultaneously. The transfer stage follows the payoff matrix of a Stag Hunt. Then, in the penalty phase, both players can pay 0 - 10 points to remove points from the other player, depending on their decision in the transfer stage. Each paid point removes 5 points from the other player.
+
+All games involved one-shot decisions between multiple anonymous players. Such one-shot anonymous games remove the well-documented effects of communication and known players on behaviour [@Chaudhuri2009; @Chaudhuri2011] and avoid potential confounds arising from repeated play, given that repeated game play may result in "super-games" and consequent cooperation even in finite repetitions [@Kreps1982]. The strategy method was used to measure responses in all possible roles, an approach which avoids feedback from other players and elicits similar behaviour to sequential play [@Brandts2000].
+
+Participants played for points, which were converted to New Zealand dollars (1 point = $0.035). Players were matched ex-post after making decisions in each of the eight games. One role per game was randomly chosen as the payoff-relevant decision role. Decisions were then matched randomly to the decisions of other players in the session to determine earnings. Earnings were accumulated across all games, though to avoid carry-over and wealth effects feedback on earnings was provided at the end of the session and not between games. We conducted sessions in real-time to ensure that participants could be paid immediately at the end of the session. This real-time interaction also ensured that participants were aware that they were interacting with others in a contemporaneous manner and did not feel as if they were playing with computerised partners, which can elicit very different patterns of behaviour [@Blount1995; @Sanfey2003].
+
+### Procedure
+
+Data collection for Study 1 was conducted between 18^th^ February and 25^th^ July 2019. Study sessions contained between 14 and 97 participants, and were conducted on midweek evenings (see Supplementary Methods). Participants knew that they were playing with others recruited from the New Zealand Attitudes and Values Study, but were not aware of how many people were present in any particular session. Participants learned that they would be playing for points that would be later converted to currency, that they would be matched in real-time with other participants from the New Zealand Attitudes and Values Study, and that every "task" would count towards their final bonus payment.
+
+The eight economic games were presented in a random order. For each game, participants read the instructions and answered a comprehension question about the game. Responses to the comprehension questions suggested that participants understood the structure of all of the games (Supplementary Table \@ref(tab:compTable)). Participants then provided responses for all possible roles in the game, following the strategy method. After all the games, participants entered a waiting lobby where they waited for other participants in the session to complete the games. Once all participants in the session arrived at the waiting lobby, the software calculated payoffs for each game by randomly matching individuals within a session. The accumulated payoffs across all eight games determined the final overall payoff.
+
+Participants were paid a fixed \$20 NZD show-up fee, plus a bonus payment of between \$10 - 35 (_M_ = \$`r printnum(mean(d1$egame.Paid.T10-20))`, _SD_ = \$`r printnum(sd(d1$egame.Paid.T10-20))`) depending on the decisions made by them and their peers. On average, participants took `r printnum(mean(d1$egame.SecsAll.T10 / 60),digits=0)` minutes to complete the eight economic games (_SD_ = `r printnum(sd(d1$egame.SecsAll.T10 / 60))` mins, range = `r printnum(min(d1$egame.SecsAll.T10 / 60),digits=0)` - `r printnum(max(d1$egame.SecsAll.T10 / 60),digits=0)` mins).
+
+### Pre-registration
+
+We pre-registered three hypotheses on the Open Science Framework on 19^th^ November 2018 (https://osf.io/dwx8g/). First, we hypothesised that a two-factor structure of cooperation and punishment would emerge from the suite of economic games, replicating @Peysakhovich2014. Second, we hypothesised that SDO would negatively predict the cooperation factor. Third, we hypothesised that RWA would positively predict the punishment factor.
+
+### Statistical analysis
+
+Our pre-registered analyses proceeded in two stages. In the first stage, we used a comprehensive set of statistical tests (correlations, principal components analyses, and confirmatory factor analyses) to determine the factor structure of variation in gameplay. We expected that two factors would emerge from and be supported by the data: cooperation and punishment. In the second stage, we used structural equation modelling to determine the extent to which these cooperation and punishment latent variables could be predicted by SDO and RWA. We also conducted additional exploratory analyses that were not pre-registered: (1) analyses regressing SDO and RWA onto individual game decisions, and (2) structural equation models regressing policy views onto the cooperation and punishment latent variables.
+
+All analyses were conducted in R Version 4.0.2 [@R-base]. We used the _psych_ package [@R-psych] for correlations and principal components analyses, and the _lavaan_ package [@R-lavaan] for confirmatory factor analyses and structural equation modelling. Figures were created with the _ggplot2_ [@R-ggplot2] and _cowplot_ [@R-cowplot] packages, and the manuscript was reproducibly generated with the _drake_ [@R-drake] and _papaja_ [@R-papaja] packages. Code to reproduce all analyses can be found on the Open Science Framework: https://osf.io/dwx8g/ [@Claessens2021].
+
+## Results
+
+```{r echo=F, warning=F, message=F}
+loadd(cor)
+loadd(pca1.2)
+loadd(pca2.2)
+```
+
+Before examining the relationship between gameplay and ideology, we first tested whether behaviour across the games shows a two-factor structure in line with our pre-registered expectations. Pairwise Spearman's rank correlations between game decisions, accounting for multiple comparisons, are visualised in Figure \@ref(fig:corPcaPlot)a. Replicating @Peysakhovich2014, we found significant positive correlations between all cooperation decisions (_r_~s~ = `r printnum(min(cor$r[1:5,1:5][lower.tri(cor$r[1:5,1:5])]))`-`r printnum(max(cor$r[1:5,1:5][lower.tri(cor$r[1:5,1:5])]))`), significant positive correlations between all punishment decisions (_r_~s~ = `r printnum(min(cor$r[6:9,6:9][lower.tri(cor$r[6:9,6:9])]))`-`r printnum(max(cor$r[6:9,6:9][lower.tri(cor$r[6:9,6:9])]))`), and non-significant or negative correlations between most cooperation and punishment decisions. Principal components analyses suggested that these patterns of covariation could be explained by two underlying factors: cooperation and punishment. When including only games from previous work, principal components analysis supported a two-factor solution. Using orthogonal varimax rotation and retaining factors with eigenvalues above one (Supplementary Figure \@ref(fig:screePlot)a), this analysis revealed that cooperative behaviour loads highly onto one factor and punitive behaviour loads highly onto a second distinct factor (Figure \@ref(fig:corPcaPlot)b). Together, these factors explained `r printnum(pca1.2$Vaccounted[3,2]*100, digits=0)`% of the variance in game decisions. This two-factor structure held when adding our novel coordination games (Figure \@ref(fig:corPcaPlot)c and Supplementary Figure \@ref(fig:screePlot)b; `r printnum(pca2.2$Vaccounted[3,2]*100, digits = 0)`% variance explained). This two-factor structure was also supported by confirmatory factor analyses (see Supplementary Results).
+
+(ref:corPcaPlotCaption) _Factor structure of economic games._ (_a_) Pairwise Spearman's rank correlations for game decisions. Grey crosses indicate non-significant correlations with Benjamin-Hochberg corrected _p_-values above .05. (_b_) Factor loadings from a principal components analysis with only the game decisions from previous work [@Peysakhovich2014]. (_c_) Factor loadings from an extended principal components analysis including coordination games. DG = Dictator Game, TG1 = Trust Game (Give), TG2 = Trust Game (Return), PGG = Public Goods Game, SH = Stag Hunt Game, UG = Ultimatum Game (Minimum Acceptable Offer), TPP = Third-Party Punishment Game (Punish), SPP = Second-Party Punishment Game (Punish Defector), SHP = Stag Hunt Game with Punishment (Punish Defector).
+
+```{r corPcaPlot, echo=FALSE, warning=F, message=F, fig.width=8, fig.height=5, fig.cap="(ref:corPcaPlotCaption)"}
+readd(corPcaPlot)
+```
+
+```{r echo=F, warning=F, message=F}
+loadd(sem1)
+loadd(r_SDO_coop)
+loadd(r_SDO_pun)
+loadd(r_RWA_coop)
+loadd(r_RWA_pun)
+```
+
+Having confirmed the existence of a two-factor structure underlying gameplay, we next fitted pre-registered structural equation models to test the relationships between the two latent variables and political ideology. We simultaneously regressed the cooperation and punishment latent variables onto mean scores of six Likert-scale items for SDO (Cronbach's $\alpha$ = `r printnum(readd(alphaSDO))`) and RWA ($\alpha$ = `r printnum(readd(alphaRWA))`). In line with our second pre-registered hypothesis, we found that SDO significantly negatively predicted the cooperation latent variable with a small-to-medium effect size (standardised $\beta$ = `r printnum(standardizedSolution(sem1)[19,4])`, unstandardised _b_ = `r printnum(parameterEstimates(sem1)[19,5])`, 95% confidence interval [`r printnum(parameterEstimates(sem1)[19,9])`, `r printnum(parameterEstimates(sem1)[19,10])`], _p_ `r printp(parameterEstimates(sem1)[19,8])`, semi-partial _r_ = `r printnum(r_SDO_coop)`; Figure \@ref(fig:coopPunPlot)a). SDO also significantly positively predicted the punishment latent variable with a small effect size, which we did not hypothesise ($\beta$ = `r printnum(standardizedSolution(sem1)[21,4])`, _b_ = `r printnum(parameterEstimates(sem1)[21,5], digits=3)` [`r printnum(parameterEstimates(sem1)[21,9], digits=3)`, `r printnum(parameterEstimates(sem1)[21,10], digits=3)`], _p_ = `r printp(parameterEstimates(sem1)[21,8])`, semi-partial _r_ = `r printnum(r_SDO_pun)`), though the magnitude of this association was not as strong as with the cooperation latent variable (difference in absolute unstandardized coefficients = `r printnum(parameterEstimates(sem1)[59,5], digits=2)`, SE = `r printnum(parameterEstimates(sem1)[59,6], digits=3)`, p `r printp(parameterEstimates(sem1)[59,8])`). In contrast with our third pre-registered hypothesis, we found no significant relationship between RWA and the punishment latent variable ($\beta$ = `r printnum(standardizedSolution(sem1)[22,4])`, _b_ = `r printnum(parameterEstimates(sem1)[22,5], digits=3)` [`r printnum(parameterEstimates(sem1)[22,9], digits=3)`, `r printnum(parameterEstimates(sem1)[22,10], digits=3)`], _p_ = `r printp(parameterEstimates(sem1)[22,8])`, semi-partial _r_ = `r printnum(r_RWA_pun)`; Figure \@ref(fig:coopPunPlot)b). RWA was also unrelated to the cooperation latent variable ($\beta$ = `r printnum(standardizedSolution(sem1)[20,4])`, _b_ = `r printnum(parameterEstimates(sem1)[20,5], digits=2)` [`r printnum(parameterEstimates(sem1)[20,9], digits=2)`, `r printnum(parameterEstimates(sem1)[20,10], digits=2)`], _p_ = `r printp(parameterEstimates(sem1)[20,8])`, semi-partial _r_ = `r printnum(r_RWA_coop)`). This pattern of results held when additionally controlling for age, gender, ethnicity, education, socio-economic status, local deprivation, and religiosity (Supplementary Table \@ref(tab:semTable)).
+
+(ref:coopPunPlotCaption) _Relationships between model-predicted latent variable scores for cooperation and punishment and the two dimensions of political ideology._ (_a_) Social Dominance Orientation (mean score) is negatively related to the cooperation latent variable. (_b_) Right Wing Authoritarianism (mean score) is unrelated to the punishment latent variable. Full lines are predictions from least-squares linear regressions without demographic covariates and shaded areas are 95% confidence intervals.
+
+```{r coopPunPlot, echo=FALSE, warning=F, message=F, fig.width=8, fig.height=4, fig.cap="(ref:coopPunPlotCaption)"}
+readd(coopPunPlot)
+```
+
+```{r echo=F}
+loadd(r_indGamesSDO)
+rs <- 
+  c(
+    r_indGamesSDO[["tpp1"]], r_indGamesSDO[["pgg"]], 
+    r_indGamesSDO[["sh"]],   r_indGamesSDO[["tg2"]],  
+    r_indGamesSDO[["dg"]],   r_indGamesSDO[["ug1"]]
+  )
+```
+
+To further investigate the relationships between political ideology and gameplay, we conducted a series of exploratory linear regressions with mean SDO and RWA scores as outcome variables and individual game decisions as predictors, accounting for multiple comparisons and statistically controlling for demographics and game comprehension. We found that most cooperative decisions were negatively associated with SDO (Supplementary Figure \@ref(fig:indGamesPlotSDO)). Holding all other variables constant, individuals with higher SDO scores gave less in the Dictator Game, returned less in the Trust Game, contributed less in the Public Goods Game, did not coordinate in the Stag Hunt Game, offered less in the Ultimatum Game, and were more likely to take in the Third-Party Punishment Game. The effect sizes for these relationships were small, but consistent across games (semi-partial _r_ = `r min(rs)`-`r max(rs)`). Contrary to our predictions, SDO was also positively related to both "social" and "antisocial" punishment decisions in the Second-Party Punishment Game and Stag Hunt Game with Punishment (i.e. costly punishment of defectors and cooperators, respectively). Fewer individual game decisions predicted RWA (Supplementary Figure \@ref(fig:indGamesPlotRWA)). Holding all other variables constant, individuals with higher RWA scores were more likely to take in the Third-Party Punishment Game and engaged in greater anti-social punishment in the Second-Party Punishment Game and the Stag Hunt Game with Punishment.
+
+```{r echo=F, warning=F, message=F}
+loadd(policy01)
+loadd(policy02)
+loadd(policy03)
+loadd(policy04)
+loadd(policy05)
+loadd(policy06)
+loadd(policy07)
+loadd(policy08)
+loadd(policy09)
+loadd(r_policy01_coop)
+loadd(r_policy02_coop)
+loadd(r_policy03_coop)
+loadd(r_policy07_coop)
+loadd(r_policy08_coop)
+loadd(r_policy09_coop)
+loadd(r_policy04_pun)
+loadd(r_policy05_pun)
+loadd(r_policy06_pun)
+```
+
+The cooperation latent variable also reliably predicted economically progressive views across a wide range of political issues (Figure \@ref(fig:policyPlotCoop); Supplementary Tables \@ref(tab:policy01table) - \@ref(tab:policy09table)). Controlling for the punishment latent variable, game comprehension, and demographics, exploratory structural equation modelling revealed that the cooperation latent variable positively predicted preferences for income redistribution (_b_ = `r printnum(parameterEstimates(policy01)[19,4], digits=2)` [`r printnum(parameterEstimates(policy01)[19,8], digits=2)`, `r printnum(parameterEstimates(policy01)[19,9], digits=2)`], _p_ `r printp(parameterEstimates(policy01)[19,7])`, semi-partial _r_ = `r printnum(r_policy01_coop, digits=2)`), making sacrifices for the environment (_b_ = `r printnum(parameterEstimates(policy03)[19,4], digits=2)` [`r printnum(parameterEstimates(policy03)[19,8], digits=2)`, `r printnum(parameterEstimates(policy03)[19,9], digits=2)`], _p_ = `r printp(parameterEstimates(policy03)[19,7])`, semi-partial _r_ = `r printnum(r_policy03_coop, digits=2)`), increased payments to those receiving Jobseeker Support (_b_ = `r printnum(parameterEstimates(policy07)[19,4], digits=2)` [`r printnum(parameterEstimates(policy07)[19,8], digits=2)`, `r printnum(parameterEstimates(policy07)[19,9], digits=2)`], _p_ `r printp(parameterEstimates(policy07)[19,7])`, semi-partial _r_ = `r printnum(r_policy07_coop, digits=2)`), and increased payments to those receiving Sole Parent Support (_b_ = `r printnum(parameterEstimates(policy08)[19,4], digits=2)` [`r printnum(parameterEstimates(policy08)[19,8], digits=2)`, `r printnum(parameterEstimates(policy08)[19,9], digits=2)`], _p_ `r printp(parameterEstimates(policy08)[19,7])`, semi-partial _r_ = `r printnum(r_policy08_coop, digits=2)`). Cooperation was also negatively related to support for an economically conservative "flat tax" where everyone pays the same percentage of tax on their income regardless of their wealth (_b_ = `r printnum(parameterEstimates(policy09)[19,4], digits=2)` [`r printnum(parameterEstimates(policy09)[19,8], digits=2)`, `r printnum(parameterEstimates(policy09)[19,9], digits=2)`], _p_ = `r printp(parameterEstimates(policy09)[19,7])`, semi-partial _r_ = `r printnum(r_policy09_coop, digits=2)`) and the belief that people would be less motivated to work hard if incomes were equal (_b_ = `r printnum(parameterEstimates(policy02)[19,4], digits=2)` [`r printnum(parameterEstimates(policy02)[19,8], digits=2)`, `r printnum(parameterEstimates(policy02)[19,9], digits=2)`], _p_ `r printp(parameterEstimates(policy02)[19,7])`, semi-partial _r_ = `r printnum(r_policy02_coop, digits=2)`). Though these effect sizes are small, the cooperation latent variable explains a comparable proportion of variance to other demographic variables (Supplementary Figure \@ref(fig:policyR2Plot)). In contrast, the punishment latent variable did not predict socially conservative views like support for same-sex marriage (_b_ = `r printnum(parameterEstimates(policy04)[20,4], digits=2)` [`r printnum(parameterEstimates(policy04)[20,8], digits=2)`, `r printnum(parameterEstimates(policy04)[20,9], digits=2)`], _p_ = `r printp(parameterEstimates(policy04)[20,7])`, semi-partial _r_ = `r printnum(r_policy04_pun, digits=2)`), euthanasia (_b_ = `r printnum(parameterEstimates(policy05)[20,4], digits=2)` [`r printnum(parameterEstimates(policy05)[20,8], digits=2)`, `r printnum(parameterEstimates(policy05)[20,9], digits=2)`], _p_ = `r printp(parameterEstimates(policy05)[20,7])`, semi-partial _r_ = `r printnum(r_policy05_pun, digits=2)`), or abortion (_b_ = `r printnum(parameterEstimates(policy06)[20,4], digits=2)` [`r printnum(parameterEstimates(policy06)[20,8], digits=2)`, `r printnum(parameterEstimates(policy06)[20,9], digits=2)`], _p_ = `r printp(parameterEstimates(policy06)[20,7])`, semi-partial _r_ = `r printnum(r_policy06_pun, digits=2)`).
+
+(ref:policyPlotCoopCaption) _The cooperation latent variable predicts a host of economically progressive views._ For every Likert scale, 7 indicates increased support for the policy or agreement with the statement, whereas 1 indicates reduced support for the policy or disagreement with the statement. For visualisation ease, regression lines and 95% confidence interval shaded areas are predictions from least-squares linear regressions without demographic covariates.
+
+```{r policyPlotCoop, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=5.5, fig.cap="(ref:policyPlotCoopCaption)"}
+readd(policyPlotCoop)
+```
+
+## Discussion
+
+We found that behaviour across a large suite of incentivised economic games can be captured by two underlying general preferences: cooperation and punishment. This finding replicates previous work [@Peysakhovich2014; @Reigstad2017] and demonstrates that the cooperative phenotype generalises to an English-speaking sample outside the United States and Europe. In addition, the unique combination of substantial monetary stakes, real-time interactive gameplay, and additional coordination games deployed in our study indicates that the cooperative phenotype emerges with methodologies that may more reliably track real-world social interactions and with games that do not involve exploitation of others [@Thielmann2020].
+
+As predicted by the dual evolutionary framework of political ideology [@Claessens2020], we found that the cooperative phenotype captured by our economic games was negatively related to SDO, with an effect size comparable to that found in a recent meta-analysis of personality traits and economic game behaviour [@Thielmann2020]. When we separately explored individual economic games, we found that the negative correlation between SDO and cooperation held for most cooperative decisions, corroborating previous work identifying negative correlations between SDO and cooperative behaviour in individual games [@Grunhage2020; @Haesevoets2015; @Halali2018; @Thielmann2020]. Further exploratory analyses revealed that the cooperative phenotype was related to economically progressive views across a wide range of policy issues, including environmentalism, welfare, taxation, and income redistribution. While the effect sizes for these associations were consistently small, the cooperation latent variable explained a comparable proportion of variance to other demographic variables known to predict economically progressive policy views, such as age, gender, and education [@Feldman2014; @Malka2014], and the effects persisted when controlling for these variables.
+
+```{r echo=F, warning=F, message=F}
+loadd(compWorld01)
+loadd(compWorld03)
+```
+
+We did not find the predicted association between the punishment latent variable and RWA, nor did we find any link between the punishment latent variable and socially conservative policy views. One explanation for this lack of relationship is that, while authoritarians might desire the sanctioning of norm violators, they would rather this punishment come from a third-party institution that they perceive to be legitimate than from an interpersonal encounter. Indeed, RWA items refer to sanctioning from strong leaders or governments, but rarely from individuals themselves [@Duckitt2009]. Another explanation is that the punishment games used in this study do not reflect general group conformist preferences as expected. As has been suggested previously [@Price2002; @Raihani2019], punishment in economic games may more closely track a competitive motive to increase one's relative payoffs over others, especially when the economic games are one-shot games with anonymous others in which there is no possibility for signalling, reputation building, or future behaviour modification.
+
+In light of these concerns about the use of one-shot punishment games as a proxy for general group conformist preferences, we conducted a second study in which we introduced two new tasks intended to measure two types of conformist preferences. The first task is designed to measure conformity in the form of social information use, while the second task is designed to measure conformity in the form of rule following. In Study 2, we re-sampled the same individuals from Study 1 for a second wave of data collection, and included these new tasks to further investigate the nature and scope of any relationship between conformist preferences and RWA and social policy views.
+
+# Study 2
+
+## Methods
+
+### Participants
+
+```{r echo=F, warning=F, message=F}
+loadd(d2)
+```
+
+In Study 2, we attempted to contact every participant who had completed Study 1 and had not since withdrawn from our study or the larger New Zealand Attitudes and Values Study. This resulted in a sample frame with 997 participants. Of the participants we emailed, 636 participants completed the second wave of data collection (64% retention rate). 27 of these participants did not complete the study in time or did not have RWA scores, resulting in a final sample of `r nrow(d2)` participants (`r sum(d2$Gender.T10==0,na.rm=T)` females; age _M_ = `r printnum(mean(d2$Age.T10,na.rm=T),digits=1)` years, _SD_ = `r printnum(sd(d2$Age.T10,na.rm=T),digits=1)` years).
+
+### Materials
+
+The materials for Study 2 were mostly identical to Study 1. As in Study 1, eight incentivised behavioural tasks were conducted online in real-time using oTree software [code available at https://osf.io/dwx8g/; @Claessens2021; @Chen2016]. The strategy method was used to elicit responses in all possible roles, and participants played for points which were converted to New Zealand dollars at the same rate as in Study 1 (1 point = $0.035). The six tasks from previous work [@Peysakhovich2014] --- the Dictator Game, Trust Game, Public Goods Game, Ultimatum Game, Third-Party Punishment Game, and Second-Party Punishment Game --- were measured again (see Supplementary Table \@ref(tab:testRetestTable) for test-retest reliability). However, in Study 2, the coordination games were replaced with two different tasks.
+
+The first task was the Berlin Estimate AdjuStment Task [BEAST; @Molleman2019], a task designed to measure individual differences in conformity in the form of social information use. In this task, over five rounds, participants are required to report the number of animals present in briefly displayed images (see Supplementary Figure \@ref(fig:beastImages)). There are two parts to each round. In the first part, the image is displayed for six seconds and participants give their initial estimate of the number of animals ($E_1$). In the second part, participants are then made aware of a previous participant's estimate for the same image ($s$) and then give a second estimate ($E_2$). Previous participants' estimates are determined by searching a database of real estimates from 100 previous participants sampled by @Molleman2019. The computer searches for an estimate in this database that is (1) in the direction of the true answer (e.g. if the participant guesses 50 and the true answer is 60, social information will be higher than 50) and (2) deviates from the participant's first estimate according to a parameter $\Delta$: $s = E_1 * (1 \pm \Delta)$. Following the original paper, this $\Delta$ parameter varied across the five rounds, taking values of 0.25, 0.15, 0.20, 0.15, and 0.25 respectively. Participants were paid for their accuracy by randomly choosing a round and determining the distance between their estimate and the correct answer: 100 points - (distance * 5).
+
+Based on participants' estimate in the first part, estimate in the second part, and the social information they were provided, we calculate a score for each of the five rounds using the following equation from @Molleman2019:
+
+$$\text{BEAST score}=\frac{E_2 - E_1}{s - E_1}$$
+
+In keeping with @Molleman2019, we remove cases where (1) participants moved their second estimate away from the social information, (2) where participants moved their second estimate further than the social information, or (3) participants ran out of time to make their estimate (8% of cases). The BEAST score varies between 0 and 1, where 0 implies that the participant did not shift their estimate after receiving social information and 1 implies that the participant shifted their estimate completely towards the social information. This is our measure of social information use.
+
+The second task was the Rule Following Task [@Kimbrough2018], a task designed to capture individual differences in conformity in the form of rule following. In this task, participants are required to place 30 balls, sequentially, into one of two buckets. Each ball placed into Bucket A earns the participant one point, while each ball placed into Bucket B earns the participant two points (randomly counterbalanced). Before making any decisions, participants are shown on the screen the text: "the rule is to place the balls into Bucket A". No explanation is provided as to why this is the rule or why participants should follow the rule, which makes them worse off in monetary terms. There is no penalty to participants who break the rule. Our measure of rule following is how often participants follow the rule by placing the balls into Bucket A.
+
+### Procedure
+
+Data collection for Study 2 was conducted between 19^th^ October and 11^th^ November 2020 with weekly staggered recruitment. Study sessions contained between 30 and 130 participants. Sessions proceeded in a similar fashion to Study 1, except that the six economic games were presented in a random order first, and then the new BEAST and Rule Following Task were presented in a random order at the end of the session. As in Study 1, participants in a session were then randomly matched in real-time following the eight tasks and the computer determined bonus payments.
+
+Participants were paid a fixed \$20 NZD show-up fee, plus a bonus payment of between \$10 - 35 (_M_ = \$`r printnum(mean(d2$egame.Paid.T11-20))`, _SD_ = \$`r printnum(sd(d2$egame.Paid.T11-20))`) depending on the decisions of themselves and others.  On average, participants took `r printnum(mean(d2$egame.SecsAll.T11 / 60),digits=0)` minutes to complete the eight tasks (_SD_ = `r printnum(sd(d2$egame.SecsAll.T11 / 60))` mins, range = `r printnum(min(d2$egame.SecsAll.T11 / 60),digits=0)` - `r printnum(max(d2$egame.SecsAll.T11 / 60),digits=0)` mins).
+
+### Pre-registration
+
+We pre-registered two hypotheses on the Open Science Framework on 28^th^ September 2020 (https://osf.io/7vqah/). First, we hypothesised that RWA would positively predict social information use in the BEAST. Second, we hypothesised that RWA would positively predict rule following in the Rule Following Task.
+
+### Statistical analysis
+
+We pre-registered separate Bayesian multilevel models to analyse the data from both new tasks. For the BEAST, we fitted a Bayesian multilevel beta regression model with BEAST score as the outcome variable. Beta regression is a useful technique for analysing continuous outcome variables that are bounded between 0 and 1 [@Douma2019]. We included RWA as the sole fixed-effect predictor, and random intercepts grouped by image type and participant. For the Rule Following Task, we fitted a Bayesian multilevel logistic regression model with binary rule following (0 = break rule, 1 = follow rule) in each round as the outcome variable, round number and RWA as fixed-effect predictors, and random intercepts and slopes for round number grouped by participant. As additional exploratory analyses, we also fitted Bayesian ordinal regressions predicting policy views from BEAST scores and rule following frequencies. We used weakly-informative priors, and all models converged normally ($\hat{R}$ = 1). Model comparison was implemented using exact K-fold cross-validation [@Vehtari2017].
+
+All analyses were conducted in R Version 4.0.2 [@R-base]. We used the _brms_ package for Bayesian multilevel models [@R-brms]. Figures were created with the _ggplot2_ [@R-ggplot2] and _cowplot_ [@R-cowplot] packages, and the manuscript was reproducibly generated with the _drake_ [@R-drake] and _papaja_ [@R-papaja] packages. Code to reproduce all analyses can be found on the Open Science Framework: https://osf.io/dwx8g/ [@Claessens2021].
+
+## Results
+
+```{r echo=F, warning=F, message=F}
+loadd(kfoldBEASTcompare)
+s1 <- summary(readd(beast1))
+s2 <- summary(readd(beast2))
+```
+
+Replicating @Molleman2019, we found that BEAST scores were skewed towards zero, with most participants choosing to stick with their initial estimate rather than shift their estimate towards the social information (Supplementary Figure \@ref(fig:histBEAST)). In line with our first pre-registered hypothesis, we found that RWA positively predicted social information use in the BEAST. In a Bayesian multilevel beta regression analysis predicting BEAST scores (0 = no shift in estimate, 1 = complete shift in estimate to social information), including RWA as a fixed-effect predictor improved model fit over the null model (difference in expected log pointwise predictive density = `r printnum(abs(kfoldBEASTcompare[2,1]), digits=2)`, _SE_ = `r printnum(kfoldBEASTcompare[2,2], digits=2)`) and the 95% credible interval for the RWA slope was greater than zero (_b_ = `r printnum(s1$fixed["RWA.T10.c","Estimate"],digits=2)`, 95% credible interval [`r printnum(s1$fixed["RWA.T10.c","l-95% CI"],digits=2)`, `r printnum(s1$fixed["RWA.T10.c","u-95% CI"],digits=2)`]; Figure \@ref(fig:rfBeastPlot)a). This result held when additionally controlling for SDO, age, gender, ethnicity, education, socio-economic status, and local deprivation, individually and together in a full model (Supplementary Table \@ref(tab:beastTable)). In contrast, SDO did not predict social information use in the BEAST (_b_ = `r printnum(s2$fixed["SDO.T10.c","Estimate"],digits=2)` [`r printnum(s2$fixed["SDO.T10.c","l-95% CI"],digits=2)`, `r printnum(s2$fixed["SDO.T10.c","u-95% CI"],digits=2)`]).
+
+(ref:rfBeastPlotCaption) _Right Wing Authoritarianism positively predicts social information use in the BEAST (a) but does not predict rule following in the Rule Following Task (b)._ Lines are mean posterior regression lines from Bayesian multilevel models without demographic covariates, shaded areas are 95% credible intervals.
+
+```{r rfBeastPlot, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=4, fig.cap="(ref:rfBeastPlotCaption)"}
+readd(rfBeastPlot)
+```
+
+```{r echo=F, warning=F, message=F}
+s04 <- summary(readd(policyBEAST04))
+s05 <- summary(readd(policyBEAST05))
+s06 <- summary(readd(policyBEAST06))
+s10 <- summary(readd(policyBEAST10))
+s11 <- summary(readd(policyBEAST11))
+s12 <- summary(readd(policyBEAST12))
+s13 <- summary(readd(policyBEAST13))
+```
+
+BEAST scores also reliably predicted socially conservative views across a wide range of political issues (Figure \@ref(fig:policyPlotBEAST); Supplementary Tables \@ref(tab:beastPolicyTable04) - \@ref(tab:beastPolicyTable13)). Controlling for demographics, exploratory Bayesian ordinal regressions revealed that mean BEAST scores (averaged over all five rounds) positively predicted support for religious instruction in schools (_b_ = `r printnum(s11$fixed["bScore","Estimate"],digits=2)` [`r printnum(s11$fixed["bScore","l-95% CI"],digits=2)`, `r printnum(s11$fixed["bScore","u-95% CI"],digits=2)`]), agreement with the essentialist belief that "a person's race biologically determines their abilities" (_b_ = `r printnum(s12$fixed["bScore","Estimate"],digits=2)` [`r printnum(s12$fixed["bScore","l-95% CI"],digits=2)`, `r printnum(s12$fixed["bScore","u-95% CI"],digits=2)`]), and disagreement with homosexuality being accepted by society (_b_ = `r printnum(s13$fixed["bScore","Estimate"],digits=2)` [`r printnum(s13$fixed["bScore","l-95% CI"],digits=2)`, `r printnum(s13$fixed["bScore","u-95% CI"],digits=2)`]). BEAST scores also negatively predicted support for abortion, both for any reason (_b_ = `r printnum(s06$fixed["bScore","Estimate"],digits=2)` [`r printnum(s06$fixed["bScore","l-95% CI"],digits=2)`, `r printnum(s06$fixed["bScore","u-95% CI"],digits=2)`]) and specifically when the woman's life is in danger (_b_ = `r printnum(s10$fixed["bScore","Estimate"],digits=2)` [`r printnum(s10$fixed["bScore","l-95% CI"],digits=2)`, `r printnum(s10$fixed["bScore","u-95% CI"],digits=2)`]). The only social issues not predicted by BEAST scores were support for same-sex marriage (_b_ = `r printnum(s04$fixed["bScore","Estimate"],digits=2)` [`r printnum(s04$fixed["bScore","l-95% CI"],digits=2)`, `r printnum(s04$fixed["bScore","u-95% CI"],digits=2)`]) and euthanasia (_b_ = `r printnum(s05$fixed["bScore","Estimate"],digits=2)` [`r printnum(s05$fixed["bScore","l-95% CI"],digits=2)`, `r printnum(s05$fixed["bScore","u-95% CI"],digits=2)`]), although these effects were in the expected direction. In contrast, BEAST scores did not predict any of the economic views predicted by the cooperative phenotype in Study 1.
+
+(ref:policyPlotBEASTCaption) _BEAST scores predict a host of socially conservative views._ For every Likert scale, 7 indicates increased support for the policy or agreement with the statement, whereas 1 indicates reduced support for the policy or disagreement with the statement. Regression lines and 95% credible interval shaded areas are predictions from Bayesian ordinal models including demographic covariates.
+
+```{r policyPlotBEAST, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=7, fig.cap="(ref:policyPlotBEASTCaption)"}
+readd(policyPlotBEAST)
+```
+
+```{r echo=F, warning=F, message=F}
+loadd(corRF)
+loadd(kfoldRFcompare)
+s1 <- summary(readd(rf1))
+s2 <- summary(readd(rf2))
+s13 <- summary(readd(policyRF13))
+sParty <- summary(readd(partyRF2))
+```
+
+Turning to the Rule Following Task, we found that rule following was bimodally distributed, with most participants either always following the rule or always breaking it (Supplementary Figure \@ref(fig:histRF)). Contrary to our second pre-registered hypothesis, we found that RWA did not predict rule following. The Spearman's rank correlation between RWA and the number of rounds in which participants followed the rule was `r printnum(corRF$estimate)` (_p_ = `r printp(corRF$p.value)`). Similarly, in a Bayesian multilevel logistic regression analysis predicting the probability of following the rule, including RWA as a fixed-effect predictor reduced model fit compared to the null model (difference in expected log pointwise predictive density = `r printnum(kfoldRFcompare[2,1], digits=2)`, _SE_ = `r printnum(kfoldRFcompare[2,2], digits=2)`) and the 95% credible interval for the log-odds RWA slope crossed zero (_b_ = `r printnum(s1$fixed["RWA.T10.c","Estimate"],digits=2)` [`r printnum(s1$fixed["RWA.T10.c","l-95% CI"],digits=2)`, `r printnum(s1$fixed["RWA.T10.c","u-95% CI"],digits=2)`]; Figure \@ref(fig:rfBeastPlot)b). This result held when additionally controlling for all demographics (Supplementary Table \@ref(tab:rfTable)). Interestingly, these additional models revealed that SDO negatively predicted the probability of rule following (_b_ = `r printnum(s2$fixed["SDO.T10.c","Estimate"],digits=2)` [`r printnum(s2$fixed["SDO.T10.c","l-95% CI"],digits=2)`, `r printnum(s2$fixed["SDO.T10.c","u-95% CI"],digits=2)`]), suggesting that high SDO participants were more likely to break the rule for personal gain. In further exploratory analyses, we found that the frequency of rule following predicted socially _progressive_ acceptance of homosexuality in society (_b_ = `r printnum(s13$fixed["rf","Estimate"],digits=2)` [`r printnum(s13$fixed["rf","l-95% CI"],digits=2)`, `r printnum(s13$fixed["rf","u-95% CI"],digits=2)`]) but did not predict any other social policy views.
+
+## Discussion
+
+In line with our first pre-registered hypothesis, we found that RWA, but not SDO, predicted increased conformity as measured by social information use in the BEAST. This builds on previous work with this task showing that social information use is associated with collectivist values [@Molleman2019]. Furthermore, we found that individual differences in social information use predicted socially conservative views across a wide range of political issues, such as abortion, homosexuality, and religious instruction in schools, but did not predict economic views. By relating RWA and social policy views to conformist preferences, these findings provide further support for the dual evolutionary framework of political ideology.
+
+As with our findings with the norm-enforcing punishment games, we found no relationship between RWA and rule following, but we did find a relationship with SDO. One explanation for this is that, while intended to track willingness to follow a rule, the Rule Following Task also reflects elements of competitiveness, selfishness, and striving for personal gain: by breaking the rules, individuals can earn more money for themselves. The Rule Following Task also exogenously imposes a rule, but from the instructions alone it is unclear who has imposed the rule or for what reason. We might have found a different pattern of results if participants had been told that the rule had been imposed by another participant or by the consensus of their in-group.
+
+# General Discussion
+
+Across two pre-registered studies, we found that behaviour in incentivised tasks was related to the two dimensions of political ideology and a wide variety of policy views. Participants who cooperated more in economic games were lower in SDO and expressed economically progressive policy views. Cooperation was unrelated to RWA or social views. Likewise, participants who conformed more to social information were higher in RWA and expressed socially conservative policy views. Social information use was unrelated to SDO or economic views. However, we also found that punishment and rule following behaviour did not show the predicted relationship with RWA or socially conservative policy views, and instead covaried with SDO. Taken together, these results provide qualified support for and refine the general claim made by the dual evolutionary framework that the two dimensions of political ideology reflect phenotypic variation in preferences for cooperation and conformity.
+
+We found that SDO and economic policy views were related to a cooperative phenotype latent variable estimated from multiple cooperation games. SDO was also related to most individual cooperative decisions, including decisions reflecting trust, altruism, coordination, and collective action. Recent work has characterised lower SDO and economically progressive views as specifically related to a reduced willingness to exploit others for personal gain [@Thielmann2020] and greater interpersonal trust [@Daniele2015]. Our exploratory analyses revealed that SDO is indeed related to exploitative behaviour, including returning less in the Trust Game, but it is also related to less cooperative behaviour in games that do not involve a conflict of interest and so do not allow for exploitation of others, such as not coordinating to mutual benefit in the Stag Hunt Game. Together, these findings support the prediction from the dual evolutionary framework that low SDO and support for economically progressive policies reflect a _general_ preference for cooperation that shapes people's views across a myriad of different social dilemmas that emerge from human group living, such as welfare benefit programmes, taxation systems, and collective responses to climate change.
+
+We found that RWA and social policy views were related to conformity in the form of social information use. In contrast, RWA and social policy views were unrelated to norm-enforcing punishment or general rule following. Taking these results at face value, this suggests that, contra our pre-registered predictions, authoritarian and socially conservative views might be better characterised by informational conformity than normative conformity [@Deutsch1955]. Informational conformity functions to adapt individual behaviour to local conditions by learning from peer behaviour, whereas normative conformity functions to minimise peer disapproval via enforcement of and adherence to social norms [@Claidiere2012]. A link between RWA and informational conformity fits with research showing that conservatives are more likely to share similar judgements and attitudes with like-minded people and exaggerate informational consensus within groups [@Jost2018], as well as prior work linking social information use to collectivist values [@Molleman2014]. The conclusion that normative conformity does not differ across the political spectrum, if warranted, would also align with research showing that conservatives and liberals are equally likely to enforce their group's social norms and exhibit intolerance towards out-groups with different norms [@Brandt2014]. If this characterisation of authoritarian and socially conservative ideology is correct, we will need to refine the dual evolutionary framework of political ideology to place less emphasis on group-wide social norms and more emphasis on in-group informational conformity and social information use. 
+
+However, it is also possible that our norm-enforcing punishment and rule following tasks were poor measures of a general group conformist preference. As noted above, these tasks contain competitive and selfish elements that may explain their correlations with SDO rather than RWA. The tasks did not explicitly measure social norms [@Krupka2013] or allow players to interact over multiple rounds, limiting the potential for the emergence and enforcement of normative expectations. The tasks were also abstract and context-neutral: they did not specify who the players in the interaction were or contain any differentiation between in-groups and out-groups. This avoids conflating participants' general predisposition to conform with their identification with a particular group, but may fail to activate conformist preferences that depend on specific group contexts, such as socially conservative group identities [@Duckitt2009;@Everett2013]. Such an explanation would imply that authoritarians and social conservatives conform to social information in all contexts, but will only enforce and adhere to norms in specific group contexts. Future research could adapt the methods used here to further refine our understanding of the behavioural preferences underlying the conformist dimension of political ideology.
+
+There are several important limitations of this work that should guide future research. First, while we collected data from a large, diverse, and representative adult sample, it remains unclear to what extent our findings apply outside of New Zealand, both in other developed countries and in non-WEIRD [@Henrich2010] and small-scale societies. Future work should replicate these results in other populations around the world, including using adapted behavioural measures to predict locally-relevant political attitudes in small-scale societies. Second, the effect sizes in both studies were relatively small. However, smaller effect sizes are to be expected from relationships between behaviour and self-reported attitudes [@Dang2020] and do not preclude these relationships from being consequential in the long run [@Funder2019]. Third, it is possible that the associations between behaviour and political views could have simply arisen from people mapping their prior political beliefs onto the tasks. We believe this is unlikely, since the tasks were abstract and contained no political framing. Future work examining longitudinal data could expand on our cross-sectional study to formally test the directions of causality between general preferences and political attitudes.
+
+In sum, we have shown clear differences in social preferences across the two dimensions of political ideology. We found that a general cooperative preference covaried with SDO and economic policy views, and informational conformity covaried with RWA and social policy views. These psychological differences were largely consistent with predictions of the dual evolutionary framework of political ideology [@Claessens2020]. The predictions not supported by the data suggest that the relationship between informational conformity and RWA and social policy views may not extend to conformity in the form of norm-enforcement and rule following, although demonstrating this conclusively will require further research using alternative behavioural measures. More generally, our results challenge claims that there are no fundamental psychological differences between liberals and conservatives, adding to the catalogue of traits that have been found to differ across the political landscape. Moreover, by characterising the very different social preferences underlying both ideological dimensions, our findings highlight the importance of work that moves beyond unidimensional scales to elucidate the dual evolutionary foundations of political ideology.
+
+\newpage
+
+# Competing Interests
+
+We declare that none of the authors have competing financial or non-financial interests.
+
+# Data Availability
+
+A copy of the anonymous data reported in each New Zealand Attitudes and Values Study publication is available from Professor Chris Sibley (c.sibley@auckland.ac.nz) upon request from appropriately qualified researchers. Such data will be provided with the explicit understanding that it is used solely for the purposes of replicating or otherwise checking the validity of analyses reported in scientific papers analysing New Zealand Attitudes and Values Study data.
+
+# Code Availability
+
+Python code for the incentivised behavioural tasks and R code for the statistical analyses, figures, and manuscript generation are publicly available at https://osf.io/dwx8g/.
+
+# Ethics Statement
+
+Ethical approval for Study 1 was granted by the University of Auckland Human Participants Ethics Committee (ref: 021666), with an ethics amendment granted for Study 2.
+
+# Acknowledgements
+
+This work was supported by a Royal Society of New Zealand Marsden grant (UOA1711).
+
+# Author Contributions
+
+All authors conceived of and designed the study. SC collected behavioural data and conducted all statistical analyses. CGS managed survey data collection. SC wrote the paper with input from CGS, AC, and QDA.
+
+\newpage
+
+# References
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id="refs" custom-style="Bibliography"></div>
+\endgroup
+
+
+\newpage
+
+# (APPENDIX) Appendix {-}
+
+```{r child = "appendix.Rmd"}
+```
+

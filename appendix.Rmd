@@ -1,0 +1,415 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+\renewcommand{\appendixname}{Supplementary Materials}
+\renewcommand{\thefigure}{S\arabic{figure}} \setcounter{figure}{0}
+\renewcommand{\thetable}{S\arabic{table}} \setcounter{table}{0}
+\renewcommand{\theequation}{S\arabic{table}} \setcounter{equation}{0}
+
+# Supplementary Materials
+
+## Supplementary Methods
+
+### Power analysis
+
+The minimum size of our sample was determined by conducting a power analysis on data from @Peysakhovich2014. We used the smallest significant correlation between economic game play and real-world cooperation in that study as the effect size (_r_ = 0.15). G*Power [@Faul2007] suggested a sample of 571 participants to detect this correlation effect size with statistical power of 0.95. We aimed to sample 1000 participants, substantially above this amount, and eventually report data from 991 participants.
+
+### Sample frame in Study 1
+
+From the New Zealand Attitudes and Values Study, we included participants in our sample frame who: had completed Wave 4 of the study (_n_ = 12,189); had also completed Wave 9 and/or Wave 10 (_n_ = 8,095); had not subsequently withdrawn from the study at the time of sampling (_n_ = 7,833); had consistently indicated at Wave 9 and 10 that they would be willing to participate in an additional online study (_n_ = 4,181); had a valid email address (_n_ = 4,040); were living in New Zealand (_n_ = 3,955); were younger than 70 at the time of sampling (_n_ = 3,374); and had a valid cell or landline number (_n_ = 3,345). Of these 3,345 participants, we attempted to contact 3,063 about an additional study involving "economic decision-making in groups", and successfully contacted 2,731 about the study.
+
+### Additional information about study sessions in Studies 1 and 2
+
+In Study 1, participants expressed interest in an initial phone call and were then emailed further information about the study. In Study 2, they were just sent an initial email. In both studies, the email asked them to complete a Qualtrics survey to specify their availability the following week. This survey removed any ineligible participants who (1) did not have adequate access to the Internet, (2) did not have a quiet place to participate in the study, and (3) did not have a New Zealand bank account (for payment purposes). 
+
+At the beginning of the study, participants first completed a consent form, in which they were informed of their confidentiality, right to withdraw, payment, and ethical approval. If they agreed to the consent form, participants read information about the economic games and then completed the games in a random order. After being randomly matched at the end of the session, participants saw a payoff screen which summarised the results of each individual game and how much they had earned from the study. Name and bank account details were collected at the end of the study. For security purposes, this information was encrypted while stored online and later decrypted on a local computer for payment. 
+
+Participants had a 55 minute limit to complete the games. If participants took longer than 55 minutes, the software skipped them ahead to the waiting lobby. Timeouts were still paid the \$20 show-up fee, but no bonus payment.
+
+### Uneven session sizes in Studies 1 and 2
+
+In Studies 1 and 2, session sizes were often not strict multiples of four necessary for real-time random matching, either due to unforeseen dropouts or uneven sign-ups. To remedy this, "simulated players" were used to round up uneven session sizes. These simulated players chose responses in the games based on the median responses from Peysakhovich et al. (2014). Participants were made aware that they may be matched with simulated players, but only on the payoff screen _after_ all game decisions had been made: "In the rare event that we could not find a participant to match you with, we have instead matched you with average decisions based on previous research."
+
+\newpage
+
+## Supplementary Results
+
+### Confirmatory factor analyses in Study 1
+
+```{r echo=F, warning=F, message=F}
+loadd(cfa1)
+loadd(cfa2)
+```
+
+As with our principal components analysis, we initially restricted our confirmatory factor model to include only the games used in previous work [@Peysakhovich2014]. Controlling for game comprehension, we loaded the Dictator Game, Trust Game (Give), Trust Game (Return), and Public Goods Game onto the cooperation latent variable, and loaded the Ultimatum Game (Minimum Acceptable Offer), Third-Party Punishment Game (Punish), and Second-Party Punishment Game (Punish Defector) onto the punishment latent variable. According to established fit statistic cutoffs [@Hu1999;@MacCallum1996], this model fitted the data well, with a Root Mean Square Error of Approximation (RMSEA) value of `r printnum(as.numeric(fitMeasures(cfa1)['rmsea']))`, a Standardised Root Mean Square Residual (SRMR) value of `r printnum(as.numeric(fitMeasures(cfa1)['srmr']))`, and a Comparative Fit Index (CFI) value of `r printnum(as.numeric(fitMeasures(cfa1)['cfi']))`. All indicators had significantly positive loadings, and the two latent variables were significantly negatively correlated with one another (_r_ = `r printnum(standardizedSolution(cfa1)[25,4])`, _p_ = `r printp(parameterEstimates(cfa1)[25,7])`; Supplementary Figure \@ref(fig:cfa1Plot)). Model fit improved further when additionally loading the Stag Hunt Game onto the cooperation latent variable and loading the Stag Hunt Game with Punishment (Punish Defector) onto the punishment latent variable (RMSEA = `r printnum(as.numeric(fitMeasures(cfa2)['rmsea']))`; SRMR = `r printnum(as.numeric(fitMeasures(cfa2)['srmr']))`; CFI = `r printnum(as.numeric(fitMeasures(cfa2)['cfi']))`; Supplementary Figure \@ref(fig:cfa2Plot)).
+
+\newpage
+
+## Supplementary Figures
+
+(ref:samplePlotCaption) _Final sample characteristics (n = `r printnum(nrow(readd(d1)))`)._ Education is measured by NZREG, an ordinal scale measuring level of educational attainment (range = 0-10). Socio-economic status (SES) is measured by NZSEI, an ordinal rank measure based on occupational categories (range = 10-90). Local deprivation is measured by NZDEP, an ordinal rank measure of local deprivation for each meshblock in New Zealand (range = 840-1550). Social Dominance Orientation (SDO) and Right Wing Authoritarianism (RWA) are mean scores from six Likert scales (range = 1-7). The map of New Zealand shows meshblock locations for participants.
+
+```{r samplePlot, echo=FALSE, warning=F, message=F, fig.width=10, fig.height=6, fig.cap="(ref:samplePlotCaption)"}
+readd(samplePlot)
+```
+
+\newpage
+
+(ref:screePlotCaption) _Scree plots for (a) the principal components analysis in Study 1 with only the game decisions from previous work and (b) the extended principal components analysis in Study 1 including coordination games._ Principal components analyses initially contained as many factors as there were variables. Both scree plots show that only the first two factors have eigenvalues above 1, indicating a two-factor solution.
+
+```{r screePlot, echo=FALSE, warning=F, message=F, fig.width=8, fig.height=4, fig.cap="(ref:screePlotCaption)"}
+readd(screePlot)
+```
+
+\newpage
+
+(ref:indGamesPlotSDOCaption) _Individual game decisions predicting Social Dominance Orientation in Study 1._ Lines are predictions from linear regressions, controlling for Right Wing Authoritarianism, game comprehension, and demographics. Multiple comparisons are accounted for by using a Bonferonni-corrected alpha level. Blue plots are cooperation decisions, orange plots are punishment decisions. Numbers are unstandardised coefficients. *_p_ < 0.003. DG = Dictator Game, TG1 = Trust Game (Give), TG2 = Trust Game (Return), PGG = Public Goods Game, SH = Stag Hunt Game, UG1 = Ultimatum Game (Offer), TPP1 = Third-Party Punishment Game (Steal), SPP1 = Second-Party Punishment Game (Cooperate), SHP1 = Stag Hunt Game with Punishment (Coordinate), UG2 = Ultimatum Game (Minimum Acceptable Offer), TPP2 = Third-Party Punishment Game (Punish), SPP2 = Second-Party Punishment Game (Punish Cooperator), SPP3 = Second-Party Punishment Game (Punish Defector), SHP2 = Stag Hunt Game with Punishment (Punish Coordinator), SHP3 = Stag Hunt Game with Punishment (Punish Defector).
+
+```{r indGamesPlotSDO, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=4, fig.cap="(ref:indGamesPlotSDOCaption)"}
+readd(indGamesPlotSDO)
+```
+
+\newpage
+
+(ref:indGamesPlotRWACaption) _Individual game decisions predicting Right Wing Authoritarianism in Study 1._ Lines are predictions from linear regressions, controlling for Social Dominance Orientation, game comprehension, and demographics. Multiple comparisons are accounted for by using a Bonferonni-corrected alpha level. Blue plots are cooperation decisions, orange plots are punishment decisions. Numbers are unstandardised coefficients. *_p_ < 0.003. DG = Dictator Game, TG1 = Trust Game (Give), TG2 = Trust Game (Return), PGG = Public Goods Game, SH = Stag Hunt Game, UG1 = Ultimatum Game (Offer), TPP1 = Third-Party Punishment Game (Steal), SPP1 = Second-Party Punishment Game (Cooperate), SHP1 = Stag Hunt Game with Punishment (Coordinate), UG2 = Ultimatum Game (Minimum Acceptable Offer), TPP2 = Third-Party Punishment Game (Punish), SPP2 = Second-Party Punishment Game (Punish Cooperator), SPP3 = Second-Party Punishment Game (Punish Defector), SHP2 = Stag Hunt Game with Punishment (Punish Coordinator), SHP3 = Stag Hunt Game with Punishment (Punish Defector).
+
+```{r indGamesPlotRWA, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=4, fig.cap="(ref:indGamesPlotRWACaption)"}
+readd(indGamesPlotRWA)
+```
+
+\newpage
+
+(ref:policyR2PlotCaption) _Bar plots for (a) economic and (b) social policy views showing the proportion of variance explained (R^2^) by the cooperation latent variable, the punishment latent variable, and various demographic controls individually, and their combination in a full model._ In Study 1, the cooperation latent variable explains a comparable proportion of variance in policy views to other demographics.
+
+```{r policyR2Plot, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=6, fig.cap="(ref:policyR2PlotCaption)"}
+readd(policyR2Plot)
+```
+
+\newpage
+
+(ref:beastImagesCaption) _Images used in the BEAST task in rounds 1-5 (a-e)._
+
+```{r beastImages, echo=FALSE, warning=F, message=F, fig.width=6, fig.height=7, fig.cap="(ref:beastImagesCaption)"}
+readd(beastImages)
+```
+
+\newpage
+
+(ref:histBEASTCaption) _Histogram of BEAST scores (averaged across all five rounds) in Study 2._
+
+```{r histBEAST, echo=FALSE, warning=F, message=F, warning=FALSE, message=FALSE, fig.width=7, fig.height=4, fig.cap="(ref:histBEASTCaption)"}
+readd(histBEAST)
+```
+
+\newpage
+
+(ref:histRFCaption) _Histogram of rule following decisions in the Rule Following Task in Study 2._
+
+```{r histRF, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=4, fig.cap="(ref:histRFCaption)"}
+readd(histRF)
+```
+
+\newpage
+
+(ref:cfa1PlotCaption) _Confirmatory factor model in Study 1 using only the game decisions from previous work._ TG1 is treated as a binary endogenous variable, and paths for PGG and UG2 are constrained to 1. Note that the regression paths controlling for game comprehension are not included in this figure. Numbers are unstandardised coefficients. *_p_ < 0.05. PGG = Public Goods Game, TG1 = Trust Game (Give), TG2 = Trust Game (Return), DG = Dictator Game, UG2 = Ultimatum Game (Minimum Acceptable Offer), TPP2 = Third-Party Punishment Game (Punish), SPP3 = Second-Party Punishment Game (Punish Defector).
+
+```{r cfa1Plot, echo=FALSE, warning=F, message=F, out.width="100%", fig.cap="(ref:cfa1PlotCaption)"}
+knitr::include_graphics("images/modelDrawing/cfa1.png")
+```
+
+\newpage
+
+(ref:cfa2PlotCaption) _Confirmatory factor model in Study 1 with additional coordination games._ TG1 and SH are treated as binary endogenous variables, and paths for PGG and UG2 are constrained to 1. Note that the regression paths controlling for game comprehension are not included in this figure. Numbers are unstandardised coefficients. *_p_ < 0.05. PGG = Public Goods Game, TG1 = Trust Game (Give), TG2 = Trust Game (Return), DG = Dictator Game, SH = Stag Hunt Game, UG2 = Ultimatum Game (Minimum Acceptable Offer), TPP2 = Third-Party Punishment Game (Punish), SPP3 = Second-Party Punishment Game (Punish Defector), SHP3 = Stag Hunt Game with Punishment (Punish Defector).
+
+```{r cfa2Plot, echo=FALSE, warning=F, message=F, out.width="100%", fig.cap="(ref:cfa2PlotCaption)"}
+knitr::include_graphics("images/modelDrawing/cfa2.png")
+```
+
+\newpage
+
+## Supplementary Tables
+
+(ref:itemTableCaption) Self-report items from the New Zealand Attitudes and Values Study used in both Studies 1 and 2.
+
+```{r itemTable, echo=F, warning=F, message=F}
+apa_table(
+  readd(itemTable), 
+  booktabs = TRUE,
+  caption = "(ref:itemTableCaption)"
+  )
+```
+
+\newpage
+
+(ref:compTableCaption) Percentage of participants correctly answering comprehension questions for tasks in Studies 1 and 2. For wording of comprehension questions, see survey materials on OSF: https://osf.io/dwx8g/
+
+```{r compTable, echo=F, warning=F, message=F}
+apa_table(
+  readd(compTable), 
+  booktabs = TRUE,
+  caption = "(ref:compTableCaption)",
+  digits = 0
+  )
+```
+
+\newpage
+
+(ref:semTableCaption) Summary of the regression coefficients predicting the cooperation and punishment latent variables in the full structural equation model in Study 1.
+
+```{r semTable, echo=F, warning=F, message=F}
+apa_table(
+  readd(semTable), 
+  booktabs = TRUE,
+  caption = "(ref:semTableCaption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:policy01tableCaption) Summary of the regression coefficients predicting preference for income redistribution (1-7) in the full structural equation model in Study 1. Full item: "Redistributing money and wealth more evenly among a larger percentage of the people in New Zealand through heavy taxes on the rich." Dependent variable is treated as ordinal.
+
+```{r policy01table, echo=F, warning=F, message=F}
+apa_table(
+  readd(policy01table), 
+  booktabs = TRUE,
+  caption = "(ref:policy01tableCaption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:policy02tableCaption) Summary of the regression coefficients predicting income attribution (1-7) in the full structural equation model in Study 1. Full item: "Income equality reduces motivation to work hard." Dependent variable is treated as ordinal.
+
+```{r policy02table, echo=F, warning=F, message=F}
+apa_table(
+  readd(policy02table), 
+  booktabs = TRUE,
+  caption = "(ref:policy02tableCaption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:policy03tableCaption) Summary of the regression coefficients predicting willingness to sacrifice for the environment (1-7) in the full structural equation model in Study 1. Full item: "Are you willing to make sacrifices to your standard of living (e.g., accept higher prices, drive less, conserve energy) in order to protect the environment?" Dependent variable is treated as ordinal.
+
+```{r policy03table, echo=F, warning=F, message=F}
+apa_table(
+  readd(policy03table), 
+  booktabs = TRUE,
+  caption = "(ref:policy03tableCaption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:policy04tableCaption) Summary of the regression coefficients predicting support for same-sex marriage (1-7) in the full structural equation model in Study 1. Full item: "Support for same-sex marriage in NZ (The Marriage Amendment Act 2013)." Dependent variable is treated as ordinal.
+
+```{r policy04table, echo=F, warning=F, message=F}
+apa_table(
+  readd(policy04table), 
+  booktabs = TRUE,
+  caption = "(ref:policy04tableCaption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:policy05tableCaption) Summary of the regression coefficients predicting support for euthanasia (1-7) in the full structural equation model in Study 1. Full item: "Suppose a person has a painful incurable disease. Do you think that doctors should be allowed by law to end the patient's life if the patient requests it?" Dependent variable is treated as ordinal.
+
+```{r policy05table, echo=F, warning=F, message=F}
+apa_table(
+  readd(policy05table), 
+  booktabs = TRUE,
+  caption = "(ref:policy05tableCaption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:policy06tableCaption) Summary of the regression coefficients predicting support for abortion (1-7) in the full structural equation model in Study 1. Full item: "Support for legalized abortion for women, regardless of the reason." Dependent variable is treated as ordinal.
+
+```{r policy06table, echo=F, warning=F, message=F}
+apa_table(
+  readd(policy06table), 
+  booktabs = TRUE,
+  caption = "(ref:policy06tableCaption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:policy07tableCaption) Summary of the regression coefficients predicting support for increased payments for those receiving Jobseeker Support (1-7) in the full structural equation model in Study 1. Full item: "Increase payments for those receiving Jobseeker Support (formerly the Unemployment Benefit)." Dependent variable is treated as ordinal.
+
+```{r policy07table, echo=F, warning=F, message=F}
+apa_table(
+  readd(policy07table), 
+  booktabs = TRUE,
+  caption = "(ref:policy07tableCaption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:policy08tableCaption) Summary of the regression coefficients predicting support for increased payments for those receiving Sole Parent Support (1-7) in the full structural equation model in Study 1. Full item: "Increase payments for those receiving Sole Parent Support (formerly the Domestic Purposes Benefit)." Dependent variable is treated as ordinal.
+
+```{r policy08table, echo=F, warning=F, message=F}
+apa_table(
+  readd(policy08table), 
+  booktabs = TRUE,
+  caption = "(ref:policy08tableCaption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:policy09tableCaption) Summary of the regression coefficients predicting support for a flat tax (1-7) in the full structural equation model in Study 1. Full item: "Support for a 'flat' tax rate (everyone pays the same percentage of tax on their income)." Dependent variable is treated as ordinal.
+
+```{r policy09table, echo=F, warning=F, message=F}
+apa_table(
+  readd(policy09table), 
+  booktabs = TRUE,
+  caption = "(ref:policy09tableCaption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:testRetestTableCaption) Test-retest reliability for the economic games in Peysakhovich et al. (2014) across Studies 1 and 2. Correlations are Spearman's rank correlations (all ps < 0.05). Intra-class correlations are two-way single score agreements across the two studies (all ps < 0.05).
+
+```{r testRetestTable, echo=F, warning=F, message=F}
+apa_table(
+  readd(testRetestTable), 
+  booktabs = TRUE,
+  caption = "(ref:testRetestTableCaption)",
+  digits = 2
+  )
+```
+
+\newpage
+
+(ref:beastTableCaption) Summary of the fixed effects from the Bayesian multilevel beta regression model predicting BEAST scores in Study 2.
+
+```{r beastTable, echo=F, warning=F, message=F}
+apa_table(
+  readd(beastTable),
+  booktabs = TRUE,
+  caption = "(ref:beastTableCaption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:rfTableCaption) Summary of the fixed effects from the Bayesian multilevel logistic regression model predicting rule following in Study 2.
+
+```{r rfTable, echo=F, warning=F, message=F}
+apa_table(
+  readd(rfTable),
+  booktabs = TRUE,
+  caption = "(ref:rfTableCaption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:beastPolicyTable04Caption) Summary of the regression coefficients predicting support for same-sex marriage (1-7) in the Bayesian ordinal regression model in Study 2. Full item: Support for "same-sex marriage in NZ (The Marriage Amendment Act 2013)."
+
+```{r beastPolicyTable04, echo=F, warning=F, message=F}
+apa_table(
+  readd(beastPolicyTable04),
+  booktabs = TRUE,
+  caption = "(ref:beastPolicyTable04Caption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:beastPolicyTable05Caption) Summary of the regression coefficients predicting support for euthanasia (1-7) in the Bayesian ordinal regression model in Study 2. Full item: "Suppose a person has a painful incurable disease. Do you think that doctors should be allowed by law to end the patient's life if the patient requests it?"
+
+```{r beastPolicyTable05, echo=F, warning=F, message=F}
+apa_table(
+  readd(beastPolicyTable05),
+  booktabs = TRUE,
+  caption = "(ref:beastPolicyTable05Caption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:beastPolicyTable06Caption) Summary of the regression coefficients predicting support for abortion for any reason (1-7) in the Bayesian ordinal regression model in Study 2. Full item: Support for "legalized abortion for women, regardless of the reason."
+
+```{r beastPolicyTable06, echo=F, warning=F, message=F}
+apa_table(
+  readd(beastPolicyTable06),
+  booktabs = TRUE,
+  caption = "(ref:beastPolicyTable06Caption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:beastPolicyTable10Caption) Summary of the regression coefficients predicting support for abortion when the woman's life is endangered (1-7) in the Bayesian ordinal regression model in Study 2. Full item: Support for "legalized abortion when the woman's life is endangered."
+
+```{r beastPolicyTable10, echo=F, warning=F, message=F}
+apa_table(
+  readd(beastPolicyTable10),
+  booktabs = TRUE,
+  caption = "(ref:beastPolicyTable10Caption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:beastPolicyTable11Caption) Summary of the regression coefficients predicting support for religious education in schools (1-7) in the Bayesian ordinal regression model in Study 2. Full item: Support for "including religious instruction in Christianity as part of the school curriculum."
+
+```{r beastPolicyTable11, echo=F, warning=F, message=F}
+apa_table(
+  readd(beastPolicyTable11),
+  booktabs = TRUE,
+  caption = "(ref:beastPolicyTable11Caption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:beastPolicyTable12Caption) Summary of the regression coefficients predicting race essentialism (1-7) in the Bayesian ordinal regression model in Study 2. Full item: "To a large extent, a person's race biologically determines his or her abilities."
+
+```{r beastPolicyTable12, echo=F, warning=F, message=F}
+apa_table(
+  readd(beastPolicyTable12),
+  booktabs = TRUE,
+  caption = "(ref:beastPolicyTable12Caption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:beastPolicyTable13Caption) Summary of the regression coefficients predicting prejudice against homosexuality (1-7) in the Bayesian ordinal regression model in Study 2. Full item: "I think that homosexuality should be accepted by society" (reversed).
+
+```{r beastPolicyTable13, echo=F, warning=F, message=F}
+apa_table(
+  readd(beastPolicyTable13),
+  booktabs = TRUE,
+  caption = "(ref:beastPolicyTable13Caption)",
+  digits = 3
+  )
+```
