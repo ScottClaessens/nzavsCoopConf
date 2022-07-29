@@ -869,7 +869,7 @@ fitRFModel <- function(d2RF, formula) {
              prior = c(prior(normal(0, 0.5), class = b),
                        prior(exponential(3), class = sd),
                        prior(lkj_corr_cholesky(2), class = L)),
-             iter = 3000, cores = 4)
+             iter = 3000, cores = 4, seed = 2113)
   return(out)
 }
 
@@ -880,7 +880,7 @@ fitPolicyRF <- function(d2, formula) {
   out <- brm(formula, data = d2, family = cumulative,
              prior = c(prior(normal(0, 1.5), class = Intercept),
                        prior(normal(0, 0.5), class = b)), 
-             cores = 4)
+             cores = 4, seed = 2113)
   return(out)
 }
 
@@ -935,7 +935,7 @@ fitBEASTModel <- function(d2BEAST, formula) {
                        prior(exponential(1), class = sd)),
              iter = 3000, cores = 4, 
              control = list(adapt_delta = 0.99),
-             save_all_pars = TRUE)
+             seed = 2113)
   return(out)
 }
 
@@ -997,7 +997,7 @@ fitPolicyBEAST <- function(d2, formula) {
   out <- brm(formula, data = d2, family = cumulative,
              prior = c(prior(normal(0, 1.5), class = Intercept),
                        prior(normal(0, 0.5), class = b)), 
-             cores = 4)
+             cores = 4, seed = 2113)
   return(out)
 }
 

@@ -14,7 +14,7 @@ output:
 
 ### Power analysis
 
-The minimum size of our sample was determined by conducting a power analysis on data from @Peysakhovich2014. We used the smallest significant correlation between economic game play and real-world cooperation in that study as the effect size (_r_ = 0.15). G*Power [@Faul2007] suggested a sample of 571 participants to detect this correlation effect size with statistical power of 0.95. We aimed to sample 1000 participants, substantially above this amount, and eventually report data from 991 participants.
+The minimum size of our sample was determined by conducting a power analysis on data from Peysakhovich et al. (2014). We used the smallest significant correlation between economic game play and real-world cooperation in that study as the effect size (_r_ = 0.15). G*Power (Faul, Erdfelder, Lang, & Buchner, 2007) suggested a sample of 571 participants to detect this correlation effect size with statistical power of 0.95. We aimed to sample 1000 participants, substantially above this amount, and eventually report data from 991 participants.
 
 ### Sample frame in Study 1
 
@@ -43,7 +43,7 @@ loadd(cfa1)
 loadd(cfa2)
 ```
 
-As with our principal components analysis, we initially restricted our confirmatory factor model to include only the games used in previous work [@Peysakhovich2014]. Controlling for game comprehension, we loaded the Dictator Game, Trust Game (Give), Trust Game (Return), and Public Goods Game onto the cooperation latent variable, and loaded the Ultimatum Game (Minimum Acceptable Offer), Third-Party Punishment Game (Punish), and Second-Party Punishment Game (Punish Defector) onto the punishment latent variable. According to established fit statistic cutoffs [@Hu1999;@MacCallum1996], this model fitted the data well, with a Root Mean Square Error of Approximation (RMSEA) value of `r printnum(as.numeric(fitMeasures(cfa1)['rmsea']))`, a Standardised Root Mean Square Residual (SRMR) value of `r printnum(as.numeric(fitMeasures(cfa1)['srmr']))`, and a Comparative Fit Index (CFI) value of `r printnum(as.numeric(fitMeasures(cfa1)['cfi']))`. All indicators had significantly positive loadings, and the two latent variables were significantly negatively correlated with one another (_r_ = `r printnum(standardizedSolution(cfa1)[25,4])`, _p_ = `r printp(parameterEstimates(cfa1)[25,7])`; Supplementary Figure \@ref(fig:cfa1Plot)). Model fit improved further when additionally loading the Stag Hunt Game onto the cooperation latent variable and loading the Stag Hunt Game with Punishment (Punish Defector) onto the punishment latent variable (RMSEA = `r printnum(as.numeric(fitMeasures(cfa2)['rmsea']))`; SRMR = `r printnum(as.numeric(fitMeasures(cfa2)['srmr']))`; CFI = `r printnum(as.numeric(fitMeasures(cfa2)['cfi']))`; Supplementary Figure \@ref(fig:cfa2Plot)).
+As with our principal components analysis, we initially restricted our confirmatory factor model to include only the games used in previous work (Peysakhovich et al., 2014). Controlling for game comprehension, we loaded the Dictator Game, Trust Game (Give), Trust Game (Return), and Public Goods Game onto the cooperation latent variable, and loaded the Ultimatum Game (Minimum Acceptable Offer), Third-Party Punishment Game (Punish), and Second-Party Punishment Game (Punish Defector) onto the punishment latent variable. According to established fit statistic cutoffs (Hu & Bentler, 1999; MacCallum, Browne, & Sugawara, 1996), this model fitted the data well, with a Root Mean Square Error of Approximation (RMSEA) value of `r printnum(as.numeric(fitMeasures(cfa1)['rmsea']))`, a Standardised Root Mean Square Residual (SRMR) value of `r printnum(as.numeric(fitMeasures(cfa1)['srmr']))`, and a Comparative Fit Index (CFI) value of `r printnum(as.numeric(fitMeasures(cfa1)['cfi']))`. All indicators had significantly positive loadings, and the two latent variables were significantly negatively correlated with one another (_r_ = `r printnum(standardizedSolution(cfa1)[25,4])`, _p_ = `r printp(parameterEstimates(cfa1)[25,7])`; Supplementary Figure \@ref(fig:cfa1Plot)). Model fit improved further when additionally loading the Stag Hunt Game onto the cooperation latent variable and loading the Stag Hunt Game with Punishment (Punish Defector) onto the punishment latent variable (RMSEA = `r printnum(as.numeric(fitMeasures(cfa2)['rmsea']))`; SRMR = `r printnum(as.numeric(fitMeasures(cfa2)['srmr']))`; CFI = `r printnum(as.numeric(fitMeasures(cfa2)['cfi']))`; Supplementary Figure \@ref(fig:cfa2Plot)).
 
 \newpage
 
@@ -413,3 +413,13 @@ apa_table(
   digits = 3
   )
 ```
+
+## Supplementary References
+
+Faul, F., Erdfelder, E., Lang, A.-G., & Buchner, A. (2007). G*Power 3: A flexible statistical power analysis program for the social, behavioral, and biomedical sciences. _Behavior Research Methods_, _39_(2), 175–191. https://doi.org/10.3758/BF03193146
+
+Hu, L. T., & Bentler, P. M. (1999). Cutoff criteria for fit indexes in covariance structure analysis: Conventional criteria versus new alternatives. _Structural Equation Modeling_, _6_(1), 1–55. https://doi.org/10.1080/10705519909540118
+
+MacCallum, R. C., Browne, M. W., & Sugawara, H. M. (1996). Power analysis and determination of sample size for covariance structure modeling. _Psychological Methods_, _1_(2), 130–149. https://doi.org/10.1037/1082-989x.1.2.130
+
+Peysakhovich, A., Nowak, M. A., & Rand, D. G. (2014). Humans display a ’cooperative phenotype’ that is domain general and temporally stable. _Nature Communications_, _5_(1), 4939. https://doi.org/10.1038/ncomms5939
