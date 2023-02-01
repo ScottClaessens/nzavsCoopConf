@@ -8,6 +8,13 @@ plan <- drake_plan(
   # load data
   d = loadData(),
   
+  ##############
+  # Validation #
+  ##############
+  
+  dVal = loadValidationData(),
+  efaTable = getEFATable(dVal),
+  
   ###########
   # Study 1 #
   ###########
@@ -20,6 +27,8 @@ plan <- drake_plan(
   compTable = makeCompTable(d1, d2),
   # sample characteristics
   samplePlot = makeSamplePlot(d1),
+  # game distributions
+  gamesDistPlot = makeGamesPlot(d1),
   # correlations
   cor = makeCor(d1),
   # pca
@@ -29,12 +38,17 @@ plan <- drake_plan(
   pca2.2 = runPCA(d1, extraGames = T, nfactors = 2, rotate = "varimax"),
   corPcaPlot = makeCorPcaPlot(cor, pca1.2, pca2.2),
   screePlot = makeScreePlot(pca1.1, pca2.1),
+  # parallel analysis
+  parallel = runParallelAnalysis(d1),
   # cfa
   cfa1 = runCFA(d1, extraGames = F),
   cfa2 = runCFA(d1, extraGames = T),
+  cfa3 = runCFAwithMethodFactor(d1),
   # Cronbach's alpha
   alphaSDO = alpha(d1 %>% select(SDO01.T10:SDO06r.T10))$total$std.alpha,
   alphaRWA = alpha(d1 %>% select(RWA01.T10:RWA06r.T10))$total$std.alpha,
+  # omega
+  omega = getOmega(d1),
   # sem
   sem1 = runSEM(d1),
   sem2 = runSEM(d1, controls = " + Age.T10.c + Gender.T10"),
@@ -43,6 +57,7 @@ plan <- drake_plan(
   sem5 = runSEM(d1, controls = " + NZSEI13.T10.c + NZDepRAW.2013.T10.c"),
   sem6 = runSEM(d1, controls = " + Religious.T10"),
   sem7 = runSEM(d1, controls = " + Age.T10.c + Gender.T10 + EthnicCats.T10_Pakeha + NZREG.T10.c + NZSEI13.T10.c + NZDepRAW.2013.T10.c + Religious.T10"),
+  sem8 = runSEMwithMethodFactor(d1),
   coopPunPlot = makeCoopPunPlot(d1, sem1),
   semTable = makeSEMtable(sem7),
   # individual games with controls
@@ -51,6 +66,7 @@ plan <- drake_plan(
   indGamesPlotSDO = makeIndPlotGrid(d1, indGamesSDO, "SDO.T10"),
   indGamesPlotRWA = makeIndPlotGrid(d1, indGamesRWA, "RWA.T10"),
   # policies
+  policyLatent = fitPolicyLatent(d1),
   policy01 = fitPolicy(d1, "Issue.IncomeRedistribution.T10", "coop + ", "pun + "),
   policy02 = fitPolicy(d1, "IncomeAttribution.T10",          "coop + ", "pun + "),
   policy03 = fitPolicy(d1, "Env.SacWilling.T09",             "coop + ", "pun + "),
@@ -201,5 +217,11 @@ plan <- drake_plan(
   ##############
   
   # render manuscript
-  manuscript = rmarkdown::render(knitr_in("manuscript.Rmd"), quiet = TRUE)
+  manuscript = rmarkdown::render(knitr_in("manuscript.Rmd"), quiet = TRUE),
+  
+  ################
+  # Session info #
+  ################
+  
+  sessionInfo = writeLines(capture.output(sessionInfo()), "sessionInfo.txt")
 )

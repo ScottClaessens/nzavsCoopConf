@@ -149,6 +149,38 @@ filterData2 <- function(d) {
     # n = 609
 }
 
+loadValidationData <- function() {
+  read_sav("data/NZAVS Scale Validation.sav", 
+           col_select = c(starts_with("SDO"), starts_with("RWA")))
+}
+
+getEFATable <- function(dVal) {
+  # get labels for table
+  labels <- get_label(dVal)
+  # get used items
+  used <- c("SDO01","SDO02","SDO03","SDO04r","SDO05r","SDO06r",
+            "RWA01","RWA02","RWA03","RWA04r","RWA05r","RWA06r")
+  # fit efa
+  efa <- fa(dVal, nfactors = 2)
+  # put in table
+  unclass(efa$loadings) %>%
+    as_tibble() %>%
+    mutate(Item = rownames(unclass(efa$loadings)),
+           Text = as.character(labels[Item]),
+           Item = str_sub(Item, 1, -3)) %>%
+    transmute(Item, Text, 
+              Factor1 = format(round(MR1, 2), nsmall = 2),
+              Factor2 = format(round(MR2, 2), nsmall = 2)) %>%
+    arrange(Item) %>%
+    # bold rows for table
+    mutate(
+      Text    = ifelse(Item %in% used, paste0("\\textbf{", Text,    "}"), Text),
+      Factor1 = ifelse(Item %in% used, paste0("\\textbf{", Factor1, "}"), Factor1),
+      Factor2 = ifelse(Item %in% used, paste0("\\textbf{", Factor2, "}"), Factor2),
+      Item    = ifelse(Item %in% used, paste0("\\textbf{", Item,    "}"), Item)
+      )
+}
+
 makeItemTable <- function() {
   tibble(
     Item = 
@@ -247,8 +279,7 @@ makeSamplePlot <- function(d1) {
     mutate(EthnicCats.T10 = factor(EthnicCats.T10, levels = names(sort(table(EthnicCats.T10), decreasing = TRUE)))) %>%
     ggplot(aes(x = EthnicCats.T10)) +
     geom_bar(fill = "azure3") +
-    labs(x = "Ethnicity", y = NULL) +
-    scale_x_discrete(labels = function(x) EthnicCats.T10 = ifelse(x == "Maori", sprintf("M\u0101ori"), x))
+    labs(x = "Ethnicity", y = NULL)
   # education
   fig.d <-
     d1 %>% drop_na(NZREG.T10) %>%
@@ -331,6 +362,25 @@ makeSamplePlot <- function(d1) {
   return(out)
 }
 
+makeGamesPlot <- function(d1) {
+  # plot
+  out <-
+    d1 %>%
+    select(egame.SH.T10:egame.SPP3.T10) %>%
+    pivot_longer(cols = everything(), names_to = "Game", values_to = "Value") %>%
+    mutate(Game = str_sub(Game, 7, -5)) %>%
+    ggplot(aes(x = Value)) +
+    geom_histogram() +
+    facet_wrap(. ~ Game, nrow = 5) +
+    ylab("Frequency") +
+    scale_x_continuous(name = NULL, breaks = c(0, 0.5, 1)) +
+    theme_classic()
+  # save plot
+  ggsave(out, file = "figures/gamesDist.pdf", 
+         height = 6, width = 5, device = cairo_pdf)
+  return(out)
+}
+
 makeCor <- function(d1) {
   d1 %>%
     select(egame.DG.T10.NA, egame.TG1.T10.NA, egame.TG2.T10.NA, 
@@ -378,18 +428,68 @@ runPCA <- function(d1, extraGames, nfactors, rotate) {
   return(out)
 }
 
+runParallelAnalysis <- function(d1) {
+  # variables to include
+  cols <- c(
+    "egame.DG.T10.NA",
+    "egame.TG1.T10.NA",
+    "egame.TG2.T10.NA",
+    "egame.PGG.T10.NA",
+    "egame.SH.T10.NA",
+    "egame.UG2.T10.NA",
+    "egame.TPP2.T10.NA",
+    "egame.SPP3.T10.NA",
+    "egame.SHP3.T10.NA"
+  )
+  # run
+  set.seed(123)
+  png(file = "images/parallelAnalysis.png", width = 500, height = 500)
+  out <-
+    d1 %>%
+    select(all_of(cols)) %>%
+    psych::fa.parallel()
+  dev.off()
+  return(out)
+}
+
 makeCorPcaPlot <- function(cor, pca1.2, pca2.2) {
   # figA
+  # correlation matrix as data frame
+  r <- as.data.frame(as.table(cor$r), responseName = "r")
+  # add BH corrected p values
+  r$p <- as.data.frame(as.table(cor$p))$Freq
+  # upper triangle only
+  r$r[as.vector(lower.tri(cor$r))] <- NA
+  r$p[as.vector(lower.tri(cor$r))] <- NA
+  r$r[r$Var1 == r$Var2] <- NA
+  r$p[r$Var1 == r$Var2] <- NA
+  # add label with sig star
+  r$label <- ifelse(
+    !is.na(r$r),
+    paste0(format(round(r$r, 2), nsmall = 2),
+          ifelse(r$p < 0.05, "*", "")),
+    NA)
+  # create correlation plot
   figA <-
-    ggcorrplot(
-      cor$r, type = "lower",
-      outline.col = "white",
-      p.mat = cor$p,
-      sig.level = 0.05,
-      pch.col = "grey",
-      legend.title = expression(r[s])
-    ) +
-    theme(legend.title = element_text(size = 14))
+    r %>%
+    filter(Var2 != "DG" & Var1 != "SHP") %>%
+    ggplot(aes(Var2, Var1, fill = r, label = label)) +
+    geom_tile() +
+    geom_text() +
+    scale_fill_gradient2(
+      low = "blue",
+      mid = "white",
+      high = "red",
+      na.value = NA,
+      guide = "colourbar",
+      name = expression(rho),
+      breaks = c(-1, -0.5, 0, 0.5, 1),
+      limits = c(-1, 1)
+      ) +
+    theme_minimal() +
+    theme(axis.title = element_blank(),
+          axis.ticks = element_blank(),
+          axis.text.x = element_text(angle = 45, vjust = 0.8))
   # figB
   l <- as.data.frame(matrix(pca1.2$loadings, nrow = 7))
   colnames(l) <- c("Factor1", "Factor2")
@@ -477,6 +577,32 @@ runCFA <- function(d1, extraGames) {
   return(out)
 }
 
+runCFAwithMethodFactor <- function(d1) {
+  model <- '# measurement model
+            coop =~ egame.PGG.T10 + egame.DG.T10 + egame.TG1.T10 + egame.TG2.T10 + egame.SH.T10
+            pun  =~ egame.UG2.T10 + egame.TPP2.T10 + egame.SPP3.T10 + egame.SHP3.T10
+            # control for comprehension
+            egame.PGG.T10 + egame.DG.T10 + egame.TG1.T10 + egame.TG2.T10 + egame.SH.T10 + egame.UG2.T10 + egame.TPP2.T10 + egame.SPP3.T10 + egame.SHP3.T10~ egame.cmpOverall.T10
+            # method factor
+            method =~ 1*egame.PGG.T10 + 1*egame.DG.T10 + 1*egame.TG1.T10 + 1*egame.TG2.T10 + 1*egame.SH.T10 + 1*egame.UG2.T10 + 1*egame.TPP2.T10 + 1*egame.SPP3.T10 + 1*egame.SHP3.T10
+            method ~~ 0*coop
+            method ~~ 0*pun
+            '
+  out <- cfa(model, data = d1, ordered = c('egame.TG1.T10', 'egame.SH.T10'))
+  return(out)
+}
+
+getOmega <- function(d1) {
+  # for tutorial, see package documentation: https://cran.r-project.org/web/packages/BifactorIndicesCalculator/BifactorIndicesCalculator.pdf
+  model <- 'Conservatism =~ SDO01.T10 + SDO02.T10 + SDO03.T10 + SDO04r.T10 + SDO05r.T10 + SDO06r.T10 +
+                            RWA01.T10 + RWA02.T10 + RWA03.T10 + RWA04r.T10 + RWA05r.T10 + RWA06r.T10
+            SDO =~ SDO01.T10 + SDO02.T10 + SDO03.T10 + SDO04r.T10 + SDO05r.T10 + SDO06r.T10
+            RWA =~ RWA01.T10 + RWA02.T10 + RWA03.T10 + RWA04r.T10 + RWA05r.T10 + RWA06r.T10'
+  fit <- lavaan::cfa(model, d1, missing = "ML", orthogonal = TRUE) # if ordered, model does not fit
+  out <- bifactorIndices(fit)
+  return(out)
+}
+
 runSEM <- function(d1, controls = "") {
   model <- '# measurement model
             coop =~ egame.PGG.T10 + egame.DG.T10 + egame.TG1.T10 + egame.TG2.T10 + egame.SH.T10
@@ -492,6 +618,23 @@ runSEM <- function(d1, controls = "") {
                   # difference in the absolute magnitude of both sdo effects
                   # adding together works because one effect is negative and the other positive
                   "\n            diffSDO := a1 + a2")
+  out <- sem(model, data = d1, ordered = c('egame.TG1.T10','egame.SH.T10'))
+  return(out)
+}
+
+runSEMwithMethodFactor <- function(d1) {
+  model <- '# measurement model
+            coop =~ egame.PGG.T10 + egame.DG.T10 + egame.TG1.T10 + egame.TG2.T10 + egame.SH.T10
+            pun  =~ egame.UG2.T10 + egame.TPP2.T10 + egame.SPP3.T10 + egame.SHP3.T10
+            # control for comprehension
+            egame.PGG.T10 + egame.DG.T10 + egame.TG1.T10 + egame.TG2.T10 + egame.SH.T10 + egame.UG2.T10 + egame.TPP2.T10 + egame.SPP3.T10 + egame.SHP3.T10 ~ egame.cmpOverall.T10
+            # method factor
+            method =~ 1*egame.PGG.T10 + 1*egame.DG.T10 + 1*egame.TG1.T10 + 1*egame.TG2.T10 + 1*egame.SH.T10 + 1*egame.UG2.T10 + 1*egame.TPP2.T10 + 1*egame.SPP3.T10 + 1*egame.SHP3.T10
+            method ~~ 0*coop
+            method ~~ 0*pun
+            # regressions
+            coop ~ SDO.T10.c + RWA.T10.c
+            pun  ~ SDO.T10.c + RWA.T10.c'
   out <- sem(model, data = d1, ordered = c('egame.TG1.T10','egame.SH.T10'))
   return(out)
 }
@@ -669,6 +812,25 @@ fitPolicy <- function(d, variable, coop, pun) {
   return(out)
 }
 
+fitPolicyLatent <- function(d) {
+  model <- '# measurement model
+            coop =~ egame.PGG.T10 + egame.DG.T10 + egame.TG1.T10 + egame.TG2.T10 + egame.SH.T10
+            pun  =~ egame.UG2.T10 + egame.TPP2.T10 + egame.SPP3.T10 + egame.SHP3.T10
+            econ =~ Issue.IncomeRedistribution.T10 + IncomeAttribution.T10 + Env.SacWilling.T09 + 
+                    Issue.Payments.Jobseeker.T06 + Issue.Payments.SoleParent.T06 + Issue.TaxPolicy.T05
+            soc  =~ Issue.SameSexMarriage.T09 + Issue.Euthanasia.T09 + Issue.Abortion.AnyReason.T10
+            # control for comprehension
+            egame.PGG.T10 + egame.DG.T10 + egame.TG1.T10 + egame.TG2.T10 + egame.SH.T10 + egame.UG2.T10 + egame.TPP2.T10 + egame.SPP3.T10 + egame.SHP3.T10 ~ egame.cmpOverall.T10
+            # regressions
+            econ ~ coop
+            soc ~ pun'
+  out <- sem(model, data = d, ordered = c('egame.TG1.T10','egame.SH.T10','Issue.IncomeRedistribution.T10',
+                                          'IncomeAttribution.T10','Env.SacWilling.T09','Issue.Payments.Jobseeker.T06',
+                                          'Issue.Payments.SoleParent.T06','Issue.TaxPolicy.T05','Issue.SameSexMarriage.T09',
+                                          'Issue.Euthanasia.T09','Issue.Abortion.AnyReason.T10'))
+  return(out)
+}
+
 semiPartialR3 <- function(d1, policy, coop, pun) {
   m1 <- policy
   m2 <- fitPolicy(d1, parameterEstimates(policy)[19,1], coop, pun)
@@ -681,13 +843,15 @@ semiPartialR3 <- function(d1, policy, coop, pun) {
 
 makePolicyTable <- function(model) {
   parameterEstimates(model) %>%
+    as_tibble() %>%
     filter(op == "~" & rhs != "egame.cmpOverall.T10") %>%
-    select(est:pvalue) %>%
+    select(est, se, ci.lower, ci.upper, z, pvalue) %>%
     mutate(
       IV = c("Cooperation", "Punishment", "Age", "Gender (Male = 1)", "Ethnicity (Pakeha)", "Education", "SES", "Deprivation", "Religious (Yes = 1)")
     ) %>%
     select(IV, everything()) %>%
-    rename(Estimate = est, SE = se, p = pvalue)
+    rename(Estimate = est, SE = se, `Lower 95% CI` = ci.lower, 
+           `Upper 95% CI` = ci.upper, p = pvalue)
 }
 
 makePolicyGrid <- function(d1, sem1) {

@@ -7,12 +7,20 @@
 To run this code, you will need to [install R](https://www.r-project.org/) and the following R packages:
 
 ```
-install.packages(c("brms", "cowplot", "drake", "fastDummies", "ggcorrplot", "ggrepel", "grid", 
-                   "gridExtra", "haven", "irr", "kableExtra", "lavaan", "lm.beta", "magick",
-				   "maps", "papaja", "psych", "sjlabelled", "tidyverse"))
+install.packages(c("brms", "cowplot", "drake", "english", "fastDummies", 
+                   "ggrepel", "grid", "gridExtra", "haven", "irr", 
+                   "kableExtra", "lavaan", "lm.beta", "magick",
+                   "maps", "papaja", "psych", "sjlabelled", "tidyverse"))
 ```
 
-Since the data underlying this project is not publicly available, you will also need to contact me to access the data file (scott.claessens@gmail.com). Without it, it will not be possible to run the pipeline or generate the manuscript.
+and the following R package from GitHub:
+
+```
+install.packages("devtools")
+devtools::install_github("ddueber/BifactorIndicesCalculator")
+```
+
+Since the data underlying this project are not publicly available, you will also need to contact me to access the data file (scott.claessens@gmail.com). Without it, it will not be possible to run the pipeline or generate the manuscript.
 
 ### Executing code
 

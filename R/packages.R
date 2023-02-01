@@ -1,9 +1,10 @@
 # packages
+library(BifactorIndicesCalculator)
 library(brms)
 library(cowplot)
 library(drake)
+library(english)
 library(fastDummies)
-library(ggcorrplot)
 library(ggrepel)
 library(grid)
 library(gridExtra)

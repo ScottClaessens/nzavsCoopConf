@@ -3,12 +3,12 @@ output:
   pdf_document: default
   html_document: default
 ---
-\renewcommand{\appendixname}{Supplementary Materials}
+\renewcommand{\appendixname}{\textbf{Supplementary Materials}}
 \renewcommand{\thefigure}{S\arabic{figure}} \setcounter{figure}{0}
 \renewcommand{\thetable}{S\arabic{table}} \setcounter{table}{0}
 \renewcommand{\theequation}{S\arabic{table}} \setcounter{equation}{0}
 
-# Supplementary Materials
+#
 
 ## Supplementary Methods
 
@@ -41,9 +41,22 @@ In Studies 1 and 2, session sizes were often not strict multiples of four necess
 ```{r echo=F, warning=F, message=F}
 loadd(cfa1)
 loadd(cfa2)
+loadd(cfa3)
 ```
 
 As with our principal components analysis, we initially restricted our confirmatory factor model to include only the games used in previous work (Peysakhovich et al., 2014). Controlling for game comprehension, we loaded the Dictator Game, Trust Game (Give), Trust Game (Return), and Public Goods Game onto the cooperation latent variable, and loaded the Ultimatum Game (Minimum Acceptable Offer), Third-Party Punishment Game (Punish), and Second-Party Punishment Game (Punish Defector) onto the punishment latent variable. According to established fit statistic cutoffs (Hu & Bentler, 1999; MacCallum, Browne, & Sugawara, 1996), this model fitted the data well, with a Root Mean Square Error of Approximation (RMSEA) value of `r printnum(as.numeric(fitMeasures(cfa1)['rmsea']))`, a Standardised Root Mean Square Residual (SRMR) value of `r printnum(as.numeric(fitMeasures(cfa1)['srmr']))`, and a Comparative Fit Index (CFI) value of `r printnum(as.numeric(fitMeasures(cfa1)['cfi']))`. All indicators had significantly positive loadings, and the two latent variables were significantly negatively correlated with one another (_r_ = `r printnum(standardizedSolution(cfa1)[25,4])`, _p_ = `r printp(parameterEstimates(cfa1)[25,7])`; Supplementary Figure \@ref(fig:cfa1Plot)). Model fit improved further when additionally loading the Stag Hunt Game onto the cooperation latent variable and loading the Stag Hunt Game with Punishment (Punish Defector) onto the punishment latent variable (RMSEA = `r printnum(as.numeric(fitMeasures(cfa2)['rmsea']))`; SRMR = `r printnum(as.numeric(fitMeasures(cfa2)['srmr']))`; CFI = `r printnum(as.numeric(fitMeasures(cfa2)['cfi']))`; Supplementary Figure \@ref(fig:cfa2Plot)).
+
+### Confirmatory factor analysis with method factor in Study 1
+
+It is possible that method factors could be influencing the economic game data and generating a two-dimensional factor structure. For example, participants could simply be responding positively to all the games, regardless of their content. To test for the influence of method effects, we also included an additional method factor in the confirmatory factor model. This method factor had loadings from all game decisions, which were all constrained to 1 (i.e., a random intercept), and covariances with the cooperation and punishment factors constrained to 0. Factor loadings were relatively unchanged in this model, with all game decisions loading positively and significantly onto their respective factors (Supplementary Figure \@ref(fig:cfa3Plot)). The model continued to fit the data well (RMSEA = `r printnum(as.numeric(fitMeasures(cfa3)['rmsea']))`; SRMR = `r printnum(as.numeric(fitMeasures(cfa3)['srmr']))`; CFI = `r printnum(as.numeric(fitMeasures(cfa3)['cfi']))`). These results suggest that method factors are not driving the two-dimensional structure of gameplay.
+
+### Structural equation model with method factor in Study 1
+
+```{r echo=F, warning=F, message=F}
+loadd(sem8)
+```
+
+We also included a method factor, as described above, in our structural equation model to check the robustness of the relationships between gameplay and political ideology to method effects. In this model, we found that SDO continued to significantly negatively predict the cooperation latent variable with a small-to-medium effect size (standardised $\beta$ = `r printnum(standardizedSolution(sem8)[30,4])`, unstandardised _b_ = `r printnum(parameterEstimates(sem8)[30,4])`, 95% confidence interval [`r printnum(parameterEstimates(sem8)[30,8])`, `r printnum(parameterEstimates(sem8)[30,9])`], _p_ `r printp(parameterEstimates(sem8)[30,7])`). SDO also continued to significantly positively predict the punishment latent variable with a small effect size ($\beta$ = `r printnum(standardizedSolution(sem8)[32,4])`, _b_ = `r printnum(parameterEstimates(sem8)[32,4], digits=3)`, 95% CI [`r printnum(parameterEstimates(sem8)[32,8], digits=3)`, `r printnum(parameterEstimates(sem8)[32,9], digits=3)`], _p_ = `r printp(parameterEstimates(sem8)[32,7])`). As in our initial model, we found no significant relationship between RWA and the punishment latent variable ($\beta$ = `r printnum(standardizedSolution(sem8)[33,4])`, _b_ = `r printnum(parameterEstimates(sem8)[33,4], digits=3)`, 95% CI [`r printnum(parameterEstimates(sem8)[33,8], digits=3)`, `r printnum(parameterEstimates(sem8)[33,9], digits=3)`], _p_ = `r printp(parameterEstimates(sem8)[33,7])`) or between RWA and the cooperation latent variable ($\beta$ = `r printnum(standardizedSolution(sem8)[31,4])`, _b_ = `r printnum(parameterEstimates(sem8)[31,4], digits=2)`, 95% CI [`r printnum(parameterEstimates(sem8)[31,8], digits=2)`, `r printnum(parameterEstimates(sem8)[31,9], digits=2)`], _p_ = `r printp(parameterEstimates(sem8)[31,7])`). These results show that method factors cannot explain the observed relationships between gameplay and political ideology.
 
 \newpage
 
@@ -51,31 +64,47 @@ As with our principal components analysis, we initially restricted our confirmat
 
 (ref:samplePlotCaption) _Final sample characteristics (n = `r printnum(nrow(readd(d1)))`)._ Education is measured by NZREG, an ordinal scale measuring level of educational attainment (range = 0-10). Socio-economic status (SES) is measured by NZSEI, an ordinal rank measure based on occupational categories (range = 10-90). Local deprivation is measured by NZDEP, an ordinal rank measure of local deprivation for each meshblock in New Zealand (range = 840-1550). Social Dominance Orientation (SDO) and Right Wing Authoritarianism (RWA) are mean scores from six Likert scales (range = 1-7). The map of New Zealand shows meshblock locations for participants.
 
-```{r samplePlot, echo=FALSE, warning=F, message=F, fig.width=10, fig.height=6, fig.cap="(ref:samplePlotCaption)"}
+```{r samplePlot, echo=FALSE, warning=F, message=F, fig.width=10, fig.height=6, fig.cap="(ref:samplePlotCaption)", fig.pos='H', out.width="\\textwidth"}
 readd(samplePlot)
+```
+
+\newpage
+
+(ref:gamesDistPlotCaption) Histograms showing distributions of decisions in the economic games in Study 1. Each game decision was normalised to vary between 0 and 1. Counts on the y-axis represent numbers of participants. DG = Dictator Game, PGG = Public Goods Game, SH = Stag Hunt Game, SHP1 = Stag Hunt Game with Punishment (Coordinate), SHP2 = Stag Hunt Game with Punishment (Punish Coordinator), SHP3 = Stag Hunt Game with Punishment (Punish Defector), SPP1 = Second-Party Punishment Game (Cooperate), SPP2 = Second-Party Punishment Game (Punish Cooperator), SPP3 = Second-Party Punishment Game (Punish Defector), TG1 = Trust Game (Give), TG2 = Trust Game (Return), TPP1 = Third-Party Punishment Game (Steal), TPP2 = Third-Party Punishment Game (Punish), UG1 = Ultimatum Game (Offer), UG2 = Ultimatum Game (Minimum Acceptable Offer).
+
+```{r gamesDistPlot, echo=FALSE, warning=F, message=F, fig.width=5, fig.height=6, fig.cap="(ref:gamesDistPlotCaption)", fig.pos='H', out.width="\\textwidth"}
+readd(gamesDistPlot)
 ```
 
 \newpage
 
 (ref:screePlotCaption) _Scree plots for (a) the principal components analysis in Study 1 with only the game decisions from previous work and (b) the extended principal components analysis in Study 1 including coordination games._ Principal components analyses initially contained as many factors as there were variables. Both scree plots show that only the first two factors have eigenvalues above 1, indicating a two-factor solution.
 
-```{r screePlot, echo=FALSE, warning=F, message=F, fig.width=8, fig.height=4, fig.cap="(ref:screePlotCaption)"}
+```{r screePlot, echo=FALSE, warning=F, message=F, fig.width=8, fig.height=4, fig.cap="(ref:screePlotCaption)", fig.pos='H', out.width="\\textwidth"}
 readd(screePlot)
 ```
 
 \newpage
 
-(ref:indGamesPlotSDOCaption) _Individual game decisions predicting Social Dominance Orientation in Study 1._ Lines are predictions from linear regressions, controlling for Right Wing Authoritarianism, game comprehension, and demographics. Multiple comparisons are accounted for by using a Bonferonni-corrected alpha level. Blue plots are cooperation decisions, orange plots are punishment decisions. Numbers are unstandardised coefficients. *_p_ < 0.003. DG = Dictator Game, TG1 = Trust Game (Give), TG2 = Trust Game (Return), PGG = Public Goods Game, SH = Stag Hunt Game, UG1 = Ultimatum Game (Offer), TPP1 = Third-Party Punishment Game (Steal), SPP1 = Second-Party Punishment Game (Cooperate), SHP1 = Stag Hunt Game with Punishment (Coordinate), UG2 = Ultimatum Game (Minimum Acceptable Offer), TPP2 = Third-Party Punishment Game (Punish), SPP2 = Second-Party Punishment Game (Punish Cooperator), SPP3 = Second-Party Punishment Game (Punish Defector), SHP2 = Stag Hunt Game with Punishment (Punish Coordinator), SHP3 = Stag Hunt Game with Punishment (Punish Defector).
+(ref:parallelPlotCaption) Scree plot from exploratory parallel analysis of economic game decisions. The parallel analysis supported a `r english(readd(parallel)$nfac)`-factor solution.
 
-```{r indGamesPlotSDO, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=4, fig.cap="(ref:indGamesPlotSDOCaption)"}
+```{r parallelPlot, echo=FALSE, warning=F, message=F, fig.width=5, fig.height=5, fig.cap="(ref:parallelPlotCaption)", fig.pos='H', out.width="\\textwidth"}
+knitr::include_graphics("images/parallelAnalysis.png")
+```
+
+\newpage
+
+(ref:indGamesPlotSDOCaption) _Individual game decisions predicting Social Dominance Orientation in Study 1._ Lines are predictions from linear regressions, controlling for Right Wing Authoritarianism, game comprehension, and demographics. Multiple comparisons are accounted for by using a Bonferonni-corrected alpha level. Blue plots are cooperation decisions, orange plots are punishment decisions. Numbers are unstandardised coefficients. *_p_ < .003. DG = Dictator Game, TG1 = Trust Game (Give), TG2 = Trust Game (Return), PGG = Public Goods Game, SH = Stag Hunt Game, UG1 = Ultimatum Game (Offer), TPP1 = Third-Party Punishment Game (Steal), SPP1 = Second-Party Punishment Game (Cooperate), SHP1 = Stag Hunt Game with Punishment (Coordinate), UG2 = Ultimatum Game (Minimum Acceptable Offer), TPP2 = Third-Party Punishment Game (Punish), SPP2 = Second-Party Punishment Game (Punish Cooperator), SPP3 = Second-Party Punishment Game (Punish Defector), SHP2 = Stag Hunt Game with Punishment (Punish Coordinator), SHP3 = Stag Hunt Game with Punishment (Punish Defector).
+
+```{r indGamesPlotSDO, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=4, fig.cap="(ref:indGamesPlotSDOCaption)", fig.pos='H', out.width="\\textwidth"}
 readd(indGamesPlotSDO)
 ```
 
 \newpage
 
-(ref:indGamesPlotRWACaption) _Individual game decisions predicting Right Wing Authoritarianism in Study 1._ Lines are predictions from linear regressions, controlling for Social Dominance Orientation, game comprehension, and demographics. Multiple comparisons are accounted for by using a Bonferonni-corrected alpha level. Blue plots are cooperation decisions, orange plots are punishment decisions. Numbers are unstandardised coefficients. *_p_ < 0.003. DG = Dictator Game, TG1 = Trust Game (Give), TG2 = Trust Game (Return), PGG = Public Goods Game, SH = Stag Hunt Game, UG1 = Ultimatum Game (Offer), TPP1 = Third-Party Punishment Game (Steal), SPP1 = Second-Party Punishment Game (Cooperate), SHP1 = Stag Hunt Game with Punishment (Coordinate), UG2 = Ultimatum Game (Minimum Acceptable Offer), TPP2 = Third-Party Punishment Game (Punish), SPP2 = Second-Party Punishment Game (Punish Cooperator), SPP3 = Second-Party Punishment Game (Punish Defector), SHP2 = Stag Hunt Game with Punishment (Punish Coordinator), SHP3 = Stag Hunt Game with Punishment (Punish Defector).
+(ref:indGamesPlotRWACaption) _Individual game decisions predicting Right Wing Authoritarianism in Study 1._ Lines are predictions from linear regressions, controlling for Social Dominance Orientation, game comprehension, and demographics. Multiple comparisons are accounted for by using a Bonferonni-corrected alpha level. Blue plots are cooperation decisions, orange plots are punishment decisions. Numbers are unstandardised coefficients. *_p_ < .003. DG = Dictator Game, TG1 = Trust Game (Give), TG2 = Trust Game (Return), PGG = Public Goods Game, SH = Stag Hunt Game, UG1 = Ultimatum Game (Offer), TPP1 = Third-Party Punishment Game (Steal), SPP1 = Second-Party Punishment Game (Cooperate), SHP1 = Stag Hunt Game with Punishment (Coordinate), UG2 = Ultimatum Game (Minimum Acceptable Offer), TPP2 = Third-Party Punishment Game (Punish), SPP2 = Second-Party Punishment Game (Punish Cooperator), SPP3 = Second-Party Punishment Game (Punish Defector), SHP2 = Stag Hunt Game with Punishment (Punish Coordinator), SHP3 = Stag Hunt Game with Punishment (Punish Defector).
 
-```{r indGamesPlotRWA, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=4, fig.cap="(ref:indGamesPlotRWACaption)"}
+```{r indGamesPlotRWA, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=4, fig.cap="(ref:indGamesPlotRWACaption)", fig.pos='H', out.width="\\textwidth"}
 readd(indGamesPlotRWA)
 ```
 
@@ -83,7 +112,7 @@ readd(indGamesPlotRWA)
 
 (ref:policyR2PlotCaption) _Bar plots for (a) economic and (b) social policy views showing the proportion of variance explained (R^2^) by the cooperation latent variable, the punishment latent variable, and various demographic controls individually, and their combination in a full model._ In Study 1, the cooperation latent variable explains a comparable proportion of variance in policy views to other demographics.
 
-```{r policyR2Plot, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=6, fig.cap="(ref:policyR2PlotCaption)"}
+```{r policyR2Plot, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=6, fig.cap="(ref:policyR2PlotCaption)", fig.pos='H', out.width="\\textwidth"}
 readd(policyR2Plot)
 ```
 
@@ -91,45 +120,69 @@ readd(policyR2Plot)
 
 (ref:beastImagesCaption) _Images used in the BEAST task in rounds 1-5 (a-e)._
 
-```{r beastImages, echo=FALSE, warning=F, message=F, fig.width=6, fig.height=7, fig.cap="(ref:beastImagesCaption)"}
+```{r beastImages, echo=FALSE, warning=F, message=F, fig.width=6, fig.height=7, fig.cap="(ref:beastImagesCaption)", fig.pos='H', out.width="\\textwidth"}
 readd(beastImages)
-```
-
-\newpage
-
-(ref:histBEASTCaption) _Histogram of BEAST scores (averaged across all five rounds) in Study 2._
-
-```{r histBEAST, echo=FALSE, warning=F, message=F, warning=FALSE, message=FALSE, fig.width=7, fig.height=4, fig.cap="(ref:histBEASTCaption)"}
-readd(histBEAST)
 ```
 
 \newpage
 
 (ref:histRFCaption) _Histogram of rule following decisions in the Rule Following Task in Study 2._
 
-```{r histRF, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=4, fig.cap="(ref:histRFCaption)"}
+```{r histRF, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=4, fig.cap="(ref:histRFCaption)", fig.pos='H', out.width="\\textwidth"}
 readd(histRF)
 ```
 
 \newpage
 
-(ref:cfa1PlotCaption) _Confirmatory factor model in Study 1 using only the game decisions from previous work._ TG1 is treated as a binary endogenous variable, and paths for PGG and UG2 are constrained to 1. Note that the regression paths controlling for game comprehension are not included in this figure. Numbers are unstandardised coefficients. *_p_ < 0.05. PGG = Public Goods Game, TG1 = Trust Game (Give), TG2 = Trust Game (Return), DG = Dictator Game, UG2 = Ultimatum Game (Minimum Acceptable Offer), TPP2 = Third-Party Punishment Game (Punish), SPP3 = Second-Party Punishment Game (Punish Defector).
+(ref:histBEASTCaption) _Histogram of BEAST scores (averaged across all five rounds) in Study 2._
 
-```{r cfa1Plot, echo=FALSE, warning=F, message=F, out.width="100%", fig.cap="(ref:cfa1PlotCaption)"}
+```{r histBEAST, echo=FALSE, warning=F, message=F, warning=FALSE, message=FALSE, fig.width=7, fig.height=4, fig.cap="(ref:histBEASTCaption)", fig.pos='H', out.width="\\textwidth"}
+readd(histBEAST)
+```
+
+\newpage
+
+(ref:cfa1PlotCaption) _Confirmatory factor model in Study 1 using only the game decisions from previous work._ TG1 is treated as a binary endogenous variable, and paths for PGG and UG2 are constrained to 1. Note that the regression paths controlling for game comprehension are not included in this figure. Numbers are unstandardised coefficients. *_p_ < .050. PGG = Public Goods Game, TG1 = Trust Game (Give), TG2 = Trust Game (Return), DG = Dictator Game, UG2 = Ultimatum Game (Minimum Acceptable Offer), TPP2 = Third-Party Punishment Game (Punish), SPP3 = Second-Party Punishment Game (Punish Defector).
+
+```{r cfa1Plot, echo=FALSE, warning=F, message=F, fig.cap="(ref:cfa1PlotCaption)", fig.pos='H', out.width="\\textwidth"}
 knitr::include_graphics("images/modelDrawing/cfa1.png")
 ```
 
 \newpage
 
-(ref:cfa2PlotCaption) _Confirmatory factor model in Study 1 with additional coordination games._ TG1 and SH are treated as binary endogenous variables, and paths for PGG and UG2 are constrained to 1. Note that the regression paths controlling for game comprehension are not included in this figure. Numbers are unstandardised coefficients. *_p_ < 0.05. PGG = Public Goods Game, TG1 = Trust Game (Give), TG2 = Trust Game (Return), DG = Dictator Game, SH = Stag Hunt Game, UG2 = Ultimatum Game (Minimum Acceptable Offer), TPP2 = Third-Party Punishment Game (Punish), SPP3 = Second-Party Punishment Game (Punish Defector), SHP3 = Stag Hunt Game with Punishment (Punish Defector).
+(ref:cfa2PlotCaption) _Confirmatory factor model in Study 1 with additional coordination games._ TG1 and SH are treated as binary endogenous variables, and paths for PGG and UG2 are constrained to 1. Note that the regression paths controlling for game comprehension are not included in this figure. Numbers are unstandardised coefficients. *_p_ < .050. PGG = Public Goods Game, TG1 = Trust Game (Give), TG2 = Trust Game (Return), DG = Dictator Game, SH = Stag Hunt Game, UG2 = Ultimatum Game (Minimum Acceptable Offer), TPP2 = Third-Party Punishment Game (Punish), SPP3 = Second-Party Punishment Game (Punish Defector), SHP3 = Stag Hunt Game with Punishment (Punish Defector).
 
-```{r cfa2Plot, echo=FALSE, warning=F, message=F, out.width="100%", fig.cap="(ref:cfa2PlotCaption)"}
+```{r cfa2Plot, echo=FALSE, warning=F, message=F, fig.cap="(ref:cfa2PlotCaption)", fig.pos='H', out.width="\\textwidth"}
 knitr::include_graphics("images/modelDrawing/cfa2.png")
 ```
 
 \newpage
 
+(ref:cfa3PlotCaption) _Confirmatory factor model in Study 1 with additional coordination games and a shared method factor._ TG1 and SH are treated as binary endogenous variables, and paths for PGG and UG2 are constrained to 1. All loadings for the method factor are constrained to 1. Note that the regression paths controlling for game comprehension are not included in this figure. Numbers are unstandardised coefficients. *_p_ < .050. PGG = Public Goods Game, TG1 = Trust Game (Give), TG2 = Trust Game (Return), DG = Dictator Game, SH = Stag Hunt Game, UG2 = Ultimatum Game (Minimum Acceptable Offer), TPP2 = Third-Party Punishment Game (Punish), SPP3 = Second-Party Punishment Game (Punish Defector), SHP3 = Stag Hunt Game with Punishment (Punish Defector).
+
+```{r cfa3Plot, echo=FALSE, warning=F, message=F, fig.cap="(ref:cfa3PlotCaption)", fig.pos='H', out.width="\\textwidth"}
+knitr::include_graphics("images/modelDrawing/cfa3.png")
+```
+
+\newpage
+
 ## Supplementary Tables
+
+(ref:efaTableCaption) Factor loadings from an exploratory factor analysis of all items from the 16-item SDO scale (Sidanius & Pratto, 1999) and the 30-item RWA scale (Altemeyer, 1996). The factor model was fitted to a separate validation dataset of New Zealand participants (n = `r nrow(readd(dVal))`). The twelve items used in the New Zealand Attitudes and Values Study are emphasised in bold.
+
+```{r efaTable, echo=F, warning=F, message=F}
+apa_table(
+  readd(efaTable), 
+  booktabs = TRUE,
+  longtable = TRUE,
+  placement = "H",
+  caption = "(ref:efaTableCaption)",
+  align = c("m{2cm}", "m{11.5cm}", "m{1.5cm}", "m{1.5cm}"),
+  escape = FALSE
+  )
+```
+
+\newpage
 
 (ref:itemTableCaption) Self-report items from the New Zealand Attitudes and Values Study used in both Studies 1 and 2.
 
@@ -137,7 +190,10 @@ knitr::include_graphics("images/modelDrawing/cfa2.png")
 apa_table(
   readd(itemTable), 
   booktabs = TRUE,
-  caption = "(ref:itemTableCaption)"
+  longtable = TRUE,
+  placement = "H",
+  caption = "(ref:itemTableCaption)",
+  align = c("m{5cm}", "m{10cm}", "m{1.5cm}")
   )
 ```
 
@@ -149,6 +205,7 @@ apa_table(
 apa_table(
   readd(compTable), 
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:compTableCaption)",
   digits = 0
   )
@@ -160,8 +217,9 @@ apa_table(
 
 ```{r semTable, echo=F, warning=F, message=F}
 apa_table(
-  readd(semTable), 
+  readd(semTable) %>% mutate(p = str_sub(as.character(format(round(p, 3), nsmall = 2)), 2, -1)), 
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:semTableCaption)",
   digits = 3
   )
@@ -173,8 +231,9 @@ apa_table(
 
 ```{r policy01table, echo=F, warning=F, message=F}
 apa_table(
-  readd(policy01table), 
+  readd(policy01table) %>% mutate(p = str_sub(as.character(format(round(p, 3), nsmall = 2)), 2, -1)), 
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:policy01tableCaption)",
   digits = 3
   )
@@ -186,8 +245,9 @@ apa_table(
 
 ```{r policy02table, echo=F, warning=F, message=F}
 apa_table(
-  readd(policy02table), 
+  readd(policy02table) %>% mutate(p = str_sub(as.character(format(round(p, 3), nsmall = 2)), 2, -1)), 
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:policy02tableCaption)",
   digits = 3
   )
@@ -199,8 +259,9 @@ apa_table(
 
 ```{r policy03table, echo=F, warning=F, message=F}
 apa_table(
-  readd(policy03table), 
+  readd(policy03table) %>% mutate(p = str_sub(as.character(format(round(p, 3), nsmall = 2)), 2, -1)), 
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:policy03tableCaption)",
   digits = 3
   )
@@ -212,8 +273,9 @@ apa_table(
 
 ```{r policy04table, echo=F, warning=F, message=F}
 apa_table(
-  readd(policy04table), 
+  readd(policy04table) %>% mutate(p = str_sub(as.character(format(round(p, 3), nsmall = 2)), 2, -1)), 
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:policy04tableCaption)",
   digits = 3
   )
@@ -225,8 +287,9 @@ apa_table(
 
 ```{r policy05table, echo=F, warning=F, message=F}
 apa_table(
-  readd(policy05table), 
+  readd(policy05table) %>% mutate(p = str_sub(as.character(format(round(p, 3), nsmall = 2)), 2, -1)), 
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:policy05tableCaption)",
   digits = 3
   )
@@ -238,8 +301,9 @@ apa_table(
 
 ```{r policy06table, echo=F, warning=F, message=F}
 apa_table(
-  readd(policy06table), 
+  readd(policy06table) %>% mutate(p = str_sub(as.character(format(round(p, 3), nsmall = 2)), 2, -1)), 
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:policy06tableCaption)",
   digits = 3
   )
@@ -251,8 +315,9 @@ apa_table(
 
 ```{r policy07table, echo=F, warning=F, message=F}
 apa_table(
-  readd(policy07table), 
+  readd(policy07table) %>% mutate(p = str_sub(as.character(format(round(p, 3), nsmall = 2)), 2, -1)), 
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:policy07tableCaption)",
   digits = 3
   )
@@ -264,8 +329,9 @@ apa_table(
 
 ```{r policy08table, echo=F, warning=F, message=F}
 apa_table(
-  readd(policy08table), 
+  readd(policy08table) %>% mutate(p = str_sub(as.character(format(round(p, 3), nsmall = 2)), 2, -1)), 
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:policy08tableCaption)",
   digits = 3
   )
@@ -277,8 +343,9 @@ apa_table(
 
 ```{r policy09table, echo=F, warning=F, message=F}
 apa_table(
-  readd(policy09table), 
+  readd(policy09table) %>% mutate(p = str_sub(as.character(format(round(p, 3), nsmall = 2)), 2, -1)), 
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:policy09tableCaption)",
   digits = 3
   )
@@ -286,27 +353,15 @@ apa_table(
 
 \newpage
 
-(ref:testRetestTableCaption) Test-retest reliability for the economic games in Peysakhovich et al. (2014) across Studies 1 and 2. Correlations are Spearman's rank correlations (all ps < 0.05). Intra-class correlations are two-way single score agreements across the two studies (all ps < 0.05).
+(ref:testRetestTableCaption) Test-retest reliability for the economic games in Peysakhovich et al. (2014) across Studies 1 and 2. Correlations are Spearman's rank correlations (all _p_ < .050). Intra-class correlations are two-way single score agreements across the two studies (all _p_ < .050).
 
 ```{r testRetestTable, echo=F, warning=F, message=F}
 apa_table(
   readd(testRetestTable), 
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:testRetestTableCaption)",
   digits = 2
-  )
-```
-
-\newpage
-
-(ref:beastTableCaption) Summary of the fixed effects from the Bayesian multilevel beta regression model predicting BEAST scores in Study 2.
-
-```{r beastTable, echo=F, warning=F, message=F}
-apa_table(
-  readd(beastTable),
-  booktabs = TRUE,
-  caption = "(ref:beastTableCaption)",
-  digits = 3
   )
 ```
 
@@ -318,7 +373,22 @@ apa_table(
 apa_table(
   readd(rfTable),
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:rfTableCaption)",
+  digits = 3
+  )
+```
+
+\newpage
+
+(ref:beastTableCaption) Summary of the fixed effects from the Bayesian multilevel beta regression model predicting BEAST scores in Study 2.
+
+```{r beastTable, echo=F, warning=F, message=F}
+apa_table(
+  readd(beastTable),
+  booktabs = TRUE,
+  placement = "H",
+  caption = "(ref:beastTableCaption)",
   digits = 3
   )
 ```
@@ -331,6 +401,7 @@ apa_table(
 apa_table(
   readd(beastPolicyTable04),
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:beastPolicyTable04Caption)",
   digits = 3
   )
@@ -344,6 +415,7 @@ apa_table(
 apa_table(
   readd(beastPolicyTable05),
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:beastPolicyTable05Caption)",
   digits = 3
   )
@@ -357,6 +429,7 @@ apa_table(
 apa_table(
   readd(beastPolicyTable06),
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:beastPolicyTable06Caption)",
   digits = 3
   )
@@ -370,6 +443,7 @@ apa_table(
 apa_table(
   readd(beastPolicyTable10),
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:beastPolicyTable10Caption)",
   digits = 3
   )
@@ -383,6 +457,7 @@ apa_table(
 apa_table(
   readd(beastPolicyTable11),
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:beastPolicyTable11Caption)",
   digits = 3
   )
@@ -396,6 +471,7 @@ apa_table(
 apa_table(
   readd(beastPolicyTable12),
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:beastPolicyTable12Caption)",
   digits = 3
   )
@@ -409,12 +485,17 @@ apa_table(
 apa_table(
   readd(beastPolicyTable13),
   booktabs = TRUE,
+  placement = "H",
   caption = "(ref:beastPolicyTable13Caption)",
   digits = 3
   )
 ```
 
+\newpage
+
 ## Supplementary References
+
+Altemeyer, B. (1996). _The authoritarian specter_. London: Harvard University Press.
 
 Faul, F., Erdfelder, E., Lang, A.-G., & Buchner, A. (2007). G*Power 3: A flexible statistical power analysis program for the social, behavioral, and biomedical sciences. _Behavior Research Methods_, _39_(2), 175–191. https://doi.org/10.3758/BF03193146
 
@@ -423,3 +504,6 @@ Hu, L. T., & Bentler, P. M. (1999). Cutoff criteria for fit indexes in covarianc
 MacCallum, R. C., Browne, M. W., & Sugawara, H. M. (1996). Power analysis and determination of sample size for covariance structure modeling. _Psychological Methods_, _1_(2), 130–149. https://doi.org/10.1037/1082-989x.1.2.130
 
 Peysakhovich, A., Nowak, M. A., & Rand, D. G. (2014). Humans display a ’cooperative phenotype’ that is domain general and temporally stable. _Nature Communications_, _5_(1), 4939. https://doi.org/10.1038/ncomms5939
+
+Sidanius, J., & Pratto, F. (1999). _Social dominance: An intergroup theory of social hierarchy and oppression_. Cambridge: Cambridge University Press.
+
