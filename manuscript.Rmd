@@ -37,7 +37,7 @@ figurelist        : no
 figsintext        : yes
 tablelist         : no
 footnotelist      : no
-linenumbers       : yes
+linenumbers       : no
 mask              : no
 draft             : no
 numbersections    : false
