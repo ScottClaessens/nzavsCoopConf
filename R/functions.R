@@ -555,7 +555,7 @@ makeScreePlot <- function(pca1.1, pca2.1) {
   return(out)
 }
 
-runCFA <- function(d1, extraGames) {
+runCFA <- function(d1, extraGames, estimator = "DWLS") {
   if (!extraGames) {
     model <- '# measurement model
               coop =~ egame.PGG.T10 + egame.DG.T10 + egame.TG1.T10 + egame.TG2.T10
@@ -573,7 +573,7 @@ runCFA <- function(d1, extraGames) {
               '
     order <- c('egame.TG1.T10', 'egame.SH.T10')
   }
-  out <- cfa(model, data = d1, ordered = order)
+  out <- cfa(model, data = d1, ordered = order, estimator = estimator)
   return(out)
 }
 
@@ -603,7 +603,7 @@ getOmega <- function(d1) {
   return(out)
 }
 
-runSEM <- function(d1, controls = "") {
+runSEM <- function(d1, controls = "", estimator = "DWLS") {
   model <- '# measurement model
             coop =~ egame.PGG.T10 + egame.DG.T10 + egame.TG1.T10 + egame.TG2.T10 + egame.SH.T10
             pun  =~ egame.UG2.T10 + egame.TPP2.T10 + egame.SPP3.T10 + egame.SHP3.T10
@@ -618,7 +618,7 @@ runSEM <- function(d1, controls = "") {
                   # difference in the absolute magnitude of both sdo effects
                   # adding together works because one effect is negative and the other positive
                   "\n            diffSDO := a1 + a2")
-  out <- sem(model, data = d1, ordered = c('egame.TG1.T10','egame.SH.T10'))
+  out <- sem(model, data = d1, ordered = c('egame.TG1.T10','egame.SH.T10'), estimator = estimator)
   return(out)
 }
 

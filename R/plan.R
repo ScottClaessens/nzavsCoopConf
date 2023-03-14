@@ -44,6 +44,8 @@ plan <- drake_plan(
   cfa1 = runCFA(d1, extraGames = F),
   cfa2 = runCFA(d1, extraGames = T),
   cfa3 = runCFAwithMethodFactor(d1),
+  cfa4 = runCFA(d1, extraGames = F, estimator = "WLSMV"),
+  cfa5 = runCFA(d1, extraGames = T, estimator = "WLSMV"),
   # Cronbach's alpha
   alphaSDO = alpha(d1 %>% select(SDO01.T10:SDO06r.T10))$total$std.alpha,
   alphaRWA = alpha(d1 %>% select(RWA01.T10:RWA06r.T10))$total$std.alpha,
@@ -58,6 +60,7 @@ plan <- drake_plan(
   sem6 = runSEM(d1, controls = " + Religious.T10"),
   sem7 = runSEM(d1, controls = " + Age.T10.c + Gender.T10 + EthnicCats.T10_Pakeha + NZREG.T10.c + NZSEI13.T10.c + NZDepRAW.2013.T10.c + Religious.T10"),
   sem8 = runSEMwithMethodFactor(d1),
+  sem9 = runSEM(d1, estimator = "WLSMV"),
   coopPunPlot = makeCoopPunPlot(d1, sem1),
   semTable = makeSEMtable(sem7),
   # individual games with controls
